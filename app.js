@@ -1,9 +1,10 @@
-/* global window, solana, solanaWeb3 */
+/* global window, web3Enable, web3FromSource, ApiPromise, WsProvider */
 
-class DetHabitsApp {
+class AnlogHabitsApp {
     constructor() {
-        console.log('Construindo DetHabitsApp...');
+        console.log('Construindo AnlogHabitsApp...');
         this.wallet = null;
+        this.api = null; // Para Polkadot API (Analog)
         this.userData = {
             totalBalance: 294,
             stakeBalance: 0,
@@ -36,10 +37,12 @@ class DetHabitsApp {
         this.secondYieldRate = this.minuteYieldRate / 60;
         this.yieldInterval = null;
         this.uiYieldInterval = null;
+        // RPC da testnet Analog (mude para 'wss://timechain-rpc.analog.one' para mainnet)
+        this.rpcEndpoint = 'wss://rpc.testnet.analog.one';
     }
 
     async init() {
-        console.log('Inicializando DetHabitsApp...');
+        console.log('Inicializando AnlogHabitsApp...');
         try {
             this.loadUserData();
             await this.loadAllMissions();
@@ -49,9 +52,13 @@ class DetHabitsApp {
             this.updateUI();
             this.setupEventListeners();
             this.startBackupInterval();
-            if (window.solana && window.solana.isPhantom) {
-                console.log('Tentando reconexão automática com Phantom...');
+            // Tentar reconexão automática com Talisman
+            try {
+                await web3Enable('AnlogHabits');
+                console.log('Tentando reconexão automática com Talisman...');
                 await this.connectWallet(true);
+            } catch (error) {
+                console.log('Talisman não disponível para reconexão automática.');
             }
         } catch (error) {
             console.error('Erro durante inicialização:', error);
@@ -62,7 +69,7 @@ class DetHabitsApp {
     loadUserData() {
         console.log('Carregando dados do usuário do localStorage...');
         try {
-            const savedData = localStorage.getItem(`dethabits_${this.wallet || 'default'}`);
+            const savedData = localStorage.getItem(`anloghabits_${this.wallet || 'default'}`);
             if (savedData) {
                 const parsedData = JSON.parse(savedData);
                 const lastMissionResetDate = parsedData.lastMissionResetDate 
@@ -416,48 +423,67 @@ class DetHabitsApp {
     }
 
     async connectWallet(onlyIfTrusted = false) {
-        console.log(`Tentando conectar carteira (onlyIfTrusted: ${onlyIfTrusted})...`);
-        this.showLoading('Conectando à carteira Phantom...');
+        console.log(`Tentando conectar carteira Talisman (onlyIfTrusted: ${onlyIfTrusted})...`);
+        this.showLoading('Conectando à carteira Talisman...');
         try {
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             console.log('Ambiente detectado:', isMobile ? 'Mobile' : 'Desktop');
 
-            if (!window.solana || !window.solana.isPhantom) {
-                console.warn('Carteira Phantom não detectada.');
+            // Habilitar a extensão Talisman
+            const extensions = await web3Enable('AnlogHabits');
+            if (extensions.length === 0) {
+                console.warn('Carteira Talisman não detectada.');
                 this.hideLoading();
                 if (isMobile) {
                     this.showToast(
-                        'Por favor, abra esta URL no navegador interno do aplicativo Phantom: https://daniloalmeid.github.io/DetHabits-Solana/',
+                        'Por favor, abra esta URL no navegador interno do aplicativo Talisman: https://daniloalmeid.github.io/AnlogHabits-Analog/',
                         'info'
                     );
-                    const redirectUrl = encodeURIComponent('https://daniloalmeid.github.io/DetHabits-Solana/');
-                    const deepLink = `phantom://connect?app_url=${redirectUrl}&dapp_name=DetHabits`;
+                    const redirectUrl = encodeURIComponent('https://daniloalmeid.github.io/AnlogHabits-Analog/');
+                    const deepLink = `talisman://connect?app_url=${redirectUrl}&dapp_name=AnlogHabits`;
                     console.log('Redirecionando para deep link:', deepLink);
                     window.location.href = deepLink;
                     await new Promise(resolve => setTimeout(resolve, 3000));
-                    if (window.solana && window.solana.isPhantom) {
-                        console.log('Phantom detectado após redirecionamento, tentando conectar...');
-                        await this.connectWallet(onlyIfTrusted);
-                    } else {
+                    const newExtensions = await web3Enable('AnlogHabits');
+                    if (newExtensions.length === 0) {
                         this.showToast(
-                            'Não foi possível detectar a carteira Phantom. Certifique-se de estar usando o navegador interno do Phantom.',
+                            'Não foi possível detectar a carteira Talisman. Certifique-se de estar usando o navegador interno do Talisman.',
                             'error'
                         );
+                        return;
                     }
                 } else {
                     this.showToast(
-                        'A extensão Phantom não foi encontrada. Por favor, instale a extensão no seu navegador.',
+                        'A extensão Talisman não foi encontrada. Por favor, instale a extensão no seu navegador.',
                         'error'
                     );
+                    return;
                 }
-                return;
             }
 
-            console.log('Conectando com a carteira Phantom...');
-            const response = await window.solana.connect({ onlyIfTrusted });
-            this.wallet = response.publicKey.toString();
+            // Conectar à carteira Talisman
+            console.log('Conectando com a carteira Talisman...');
+            const injector = await web3FromSource('talisman');
+            if (!injector) {
+                throw new Error('Talisman injector não encontrado.');
+            }
+
+            // Conectar ao nó da Analog
+            const provider = new WsProvider(this.rpcEndpoint);
+            this.api = await ApiPromise.create({ provider });
+            console.log('Conexão com o nó da Analog estabelecida.');
+
+            // Obter contas disponíveis
+            const accounts = await injector.accounts.get();
+            if (accounts.length === 0) {
+                throw new Error('Nenhuma conta encontrada na carteira Talisman.');
+            }
+
+            // Selecionar a primeira conta (pode ser ajustado para permitir escolha do usuário)
+            this.wallet = accounts[0].address;
             console.log('Carteira conectada com sucesso:', this.wallet);
             this.userData.walletAddress = this.wallet;
+
             // Inicializar lotteryAttempts se não estiver definido
             const today = this.getCurrentDate();
             if (!this.userData.lotteryAttempts || this.userData.lotteryAttempts.date !== today) {
@@ -466,7 +492,7 @@ class DetHabitsApp {
                     attempts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 }
                 };
             }
-            this.showToast('Carteira Phantom conectada com sucesso!', 'success');
+            this.showToast('Carteira Talisman conectada com sucesso!', 'success');
 
             const homePage = document.getElementById('home-page');
             if (homePage) homePage.style.display = 'none';
@@ -481,16 +507,61 @@ class DetHabitsApp {
             this.initStaking();
         } catch (error) {
             console.error('Erro ao conectar carteira:', error);
-            if (error.code === 4001) {
+            if (error.message.includes('rejected')) {
                 this.showToast('Você rejeitou a conexão com a carteira.', 'error');
             } else {
                 this.showToast(
-                    'Erro ao conectar a carteira. No celular, abra esta URL no navegador interno do Phantom: https://daniloalmeid.github.io/DetHabits-Solana/',
+                    'Erro ao conectar a carteira. No celular, abra esta URL no navegador interno do Talisman: https://daniloalmeid.github.io/AnlogHabits-Analog/',
                     'error'
                 );
             }
         } finally {
             this.hideLoading();
+        }
+    }
+
+    disconnectWallet() {
+        console.log('Desconectando carteira...');
+        try {
+            if (this.api) {
+                this.api.disconnect();
+                console.log('Desconectado do nó da Analog');
+                this.api = null;
+            }
+            this.saveUserData();
+            this.wallet = null;
+            this.userData = {
+                totalBalance: 294,
+                stakeBalance: 0,
+                voluntaryStakeBalance: 0,
+                fractionalYieldObligatory: 0,
+                fractionalYieldVoluntary: 0,
+                dailyYieldObligatoryAccumulated: 0,
+                dailyYieldVoluntaryAccumulated: 0,
+                lastYieldUpdateTime: Date.now(),
+                lastYieldResetDate: new Date().toISOString(),
+                spendingBalance: 0,
+                completedMissions: [],
+                transactions: [],
+                lastMissionResetDate: Date.now(),
+                dailyMissions: [],
+                fixedMissions: [],
+                stakeLockEnd: null,
+                lotteryAttempts: null,
+                walletAddress: null,
+                lotteryWinnings: 0
+            };
+            this.missions = [];
+            const homePage = document.getElementById('home-page');
+            const navbar = document.getElementById('navbar');
+            if (homePage) homePage.style.display = 'block';
+            if (navbar) navbar.style.display = 'none';
+            this.navigateTo('home');
+            this.showToast('Carteira desconectada com sucesso!', 'success');
+            this.updateUI();
+        } catch (error) {
+            console.error('Erro ao desconectar carteira:', error);
+            this.showToast('Erro ao desconectar carteira.', 'error');
         }
     }
 
@@ -816,49 +887,6 @@ class DetHabitsApp {
         }
     }
 
-    disconnectWallet() {
-        console.log('Desconectando carteira...');
-        if (window.solana && window.solana.isPhantom) {
-            try {
-                window.solana.disconnect();
-                console.log('Carteira desconectada via Phantom API');
-            } catch (error) {
-                console.error('Erro ao desconectar carteira:', error);
-            }
-        }
-        this.saveUserData();
-        this.wallet = null;
-        this.userData = {
-            totalBalance: 294,
-            stakeBalance: 0,
-            voluntaryStakeBalance: 0,
-            fractionalYieldObligatory: 0,
-            fractionalYieldVoluntary: 0,
-            dailyYieldObligatoryAccumulated: 0,
-            dailyYieldVoluntaryAccumulated: 0,
-            lastYieldUpdateTime: Date.now(),
-            lastYieldResetDate: new Date().toISOString(),
-            spendingBalance: 0,
-            completedMissions: [],
-            transactions: [],
-            lastMissionResetDate: Date.now(),
-            dailyMissions: [],
-            fixedMissions: [],
-            stakeLockEnd: null,
-            lotteryAttempts: null,
-            walletAddress: null,
-            lotteryWinnings: 0
-        };
-        this.missions = [];
-        const homePage = document.getElementById('home-page');
-        const navbar = document.getElementById('navbar');
-        if (homePage) homePage.style.display = 'block';
-        if (navbar) navbar.style.display = 'none';
-        this.navigateTo('home');
-        this.showToast('Carteira desconectada com sucesso!', 'success');
-        this.updateUI();
-    }
-
     updateWalletDisplay() {
         if (!this.wallet) {
             console.log('Nenhuma carteira conectada, pulando atualização de display');
@@ -1015,7 +1043,7 @@ class DetHabitsApp {
     saveUserData() {
         console.log('Salvando dados do usuário no localStorage...');
         try {
-            localStorage.setItem(`dethabits_${this.wallet || 'default'}`, JSON.stringify(this.userData));
+            localStorage.setItem(`anloghabits_${this.wallet || 'default'}`, JSON.stringify(this.userData));
             console.log('Dados do usuário salvos com sucesso');
         } catch (error) {
             console.error('Erro ao salvar dados do usuário:', error);
@@ -1346,40 +1374,40 @@ class DetHabitsApp {
         const withdrawBtn = document.getElementById('withdraw-btn');
         if (withdrawBtn) {
             withdrawBtn.addEventListener('click', async () => {
-                const minWithdraw = 100; // Mínimo para testes (pode mudar de volta para 800 depois)
+                const minWithdraw = 100; // Mínimo para testes
                 const amount = this.userData.totalBalance || 0;
-        
+
                 if (amount < minWithdraw) {
                     this.showToast(`Mínimo de ${minWithdraw} DET necessário para saque.`, 'error');
                     return;
                 }
-        
-                if (!this.wallet) {
-                    this.showToast('Carteira não conectada. Conecte a Phantom primeiro.', 'error');
+
+                if (!this.wallet || !this.api) {
+                    this.showToast('Carteira não conectada. Conecte a Talisman primeiro.', 'error');
                     return;
                 }
-        
+
                 this.showLoading('Processando saque...');
-        
+
                 try {
                     // Enviar requisição para o backend
-                    const response = await fetch('http://localhost:3000/withdraw', { // Mude para a URL do seu servidor se não for local
+                    const response = await fetch('http://localhost:3000/withdraw', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            destinationAddress: this.wallet, // Endereço da carteira conectada
-                            amount: amount.toFixed(5), // Quantidade em DET
+                            destinationAddress: this.wallet,
+                            amount: amount.toFixed(5),
                         }),
                     });
-        
+
                     const data = await response.json();
-        
+
                     if (!response.ok) {
                         throw new Error(data.error || 'Erro no saque.');
                     }
-        
+
                     // Sucesso: Zerando saldo local e atualizando
                     this.userData.totalBalance = 0;
                     this.addTransaction('withdraw', `Saque: ${amount.toFixed(5)} DET (tx: ${data.signature})`, -amount);
@@ -1480,7 +1508,7 @@ class DetHabitsApp {
     }
 }
 
-window.app = new DetHabitsApp();
+window.app = new AnlogHabitsApp();
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM carregado, inicializando aplicação...');
     window.app.init();

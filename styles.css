@@ -431,6 +431,109 @@ body {
     color: #2C9A94;
 }
 
+/* Pesquisas Page (NOVA) */
+#research-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#research-page h1 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #2C9A94;
+}
+
+#research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.research-banner {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.research-banner:hover {
+    transform: translateY(-4px);
+}
+
+.banner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.banner-icon {
+    font-size: 2rem;
+}
+
+.banner-reward {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #38B2AC;
+}
+
+.banner-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #1F2937;
+    margin-bottom: 0.5rem;
+}
+
+.banner-description {
+    font-size: 0.9rem;
+    color: #6B7280;
+    margin-bottom: 1rem;
+}
+
+.banner-level {
+    font-size: 1rem;
+    color: #2C9A94;
+    margin-bottom: 0.5rem;
+}
+
+.banner-cost {
+    font-size: 0.9rem;
+    color: #6B7280;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+#upgrade-tenis, #upgrade-tapete {
+    margin-bottom: 0.5rem;
+}
+
+#test-tenis, #test-tapete {
+    background-color: #60A5FA;
+}
+
+.research-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.research-summary h3 {
+    font-size: 1.25rem;
+    color: #2C9A94;
+    margin-bottom: 0.5rem;
+}
+
+.research-summary p {
+    color: #6B7280;
+}
+
 /* Wallet Page */
 #wallet-page .page-header {
     margin-bottom: 2rem;
@@ -1279,7 +1382,7 @@ body {
         gap: 1rem;
     }
 
-    .missions-grid, .wallet-cards, .presale-stats, .lottery-grid {
+    .missions-grid, .wallet-cards, .presale-stats, .lottery-grid, #research-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1299,7 +1402,7 @@ body {
         font-size: 1.1rem;
     }
 
-    .mission-card, .wallet-card, .stat-card, .lottery-item {
+    .mission-card, .wallet-card, .stat-card, .lottery-item, .research-banner {
         padding: 1rem;
     }
 
