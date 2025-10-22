@@ -1,0 +1,1642 @@
+{
+    "dailyMissions": [
+        {
+            "id": "water_1",
+            "title": "Beber 1 Copo de Água",
+            "description": "Hidrate-se bebendo pelo menos um copo de água e comprove com uma foto.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "walk_1",
+            "title": "Caminhar por 5 Minutos",
+            "description": "Faça uma caminhada de pelo menos 5 minutos e registre o momento com uma foto.",
+            "icon": "🚶",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "meditation_1",
+            "title": "Meditar por 3 Minutos",
+            "description": "Dedique 3 minutos para meditação e tire uma selfie relaxante.",
+            "icon": "🧘",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "nap_1",
+            "title": "Tirar uma Soneca de 15 Minutos",
+            "description": "Tire uma soneca de 15 minutos e comprove com uma foto do ambiente.",
+            "icon": "😴",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "stretch_1",
+            "title": "Alongar o Corpo por 2 Minutos",
+            "description": "Faça alongamentos por 2 minutos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "fruit_1",
+            "title": "Comer 1 Fruta",
+            "description": "Consuma uma fruta fresca e comprove com uma foto.",
+            "icon": "🍎",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "deep_breath_1",
+            "title": "Fazer 5 Respirações Profundas",
+            "description": "Faça 5 respirações profundas e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "smile_1",
+            "title": "Sorrir por 10 Segundos",
+            "description": "Sorria por 10 segundos e tire uma selfie sorrindo.",
+            "icon": "😊",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "sun_1",
+            "title": "Tomar Sol por 5 Minutos",
+            "description": "Fique ao sol por 5 minutos e envie uma foto do momento.",
+            "icon": "☀️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "gratitude_1",
+            "title": "Anotar 1 Coisa pela qual é Grato",
+            "description": "Escreva algo pelo qual você é grato e envie uma foto da anotação.",
+            "icon": "🙏",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "stairs_1",
+            "title": "Subir e Descer Escadas 1 Vez",
+            "description": "Suba e desça um lance de escadas e comprove com uma foto.",
+            "icon": "🪜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "vegetables_1",
+            "title": "Comer 1 Porção de Vegetais",
+            "description": "Inclua vegetais na sua alimentação e envie uma foto do prato.",
+            "icon": "🥕",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "message_1",
+            "title": "Enviar uma Mensagem Positiva para Alguém",
+            "description": "Envie uma mensagem positiva e tire um print da mensagem.",
+            "icon": "💬",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "music_1",
+            "title": "Ouvir 1 Música Relaxante",
+            "description": "Ouça uma música relaxante por 3 minutos e envie uma foto do ambiente.",
+            "icon": "🎶",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "read_1",
+            "title": "Ler 1 Página de um Livro",
+            "description": "Leia uma página de um livro e envie uma foto da página.",
+            "icon": "📚",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "wash_face_1",
+            "title": "Lavar o Rosto com Água Fria",
+            "description": "Lave o rosto com água fria e envie uma selfie.",
+            "icon": "🧼",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "squats_1",
+            "title": "Fazer 10 Agachamentos",
+            "description": "Faça 10 agachamentos e envie uma foto ou vídeo do exercício.",
+            "icon": "🏋️",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "tea_1",
+            "title": "Beber 1 Xícara de Chá sem Açúcar",
+            "description": "Tome um chá sem açúcar e envie uma foto da xícara.",
+            "icon": "☕",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "phone_off_1",
+            "title": "Desligar o Celular por 5 Minutos",
+            "description": "Desligue o celular por 5 minutos e envie uma foto do ambiente.",
+            "icon": "📴",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jumping_jacks_1",
+            "title": "Fazer 10 Polichinelos",
+            "description": "Faça 10 polichinelos e envie uma foto ou vídeo do exercício.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "nuts_1",
+            "title": "Comer um Punhado de Castanhas",
+            "description": "Consuma um punhado de castanhas e envie uma foto.",
+            "icon": "🥜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "hug_1",
+            "title": "Abraçar Alguém por 10 Segundos",
+            "description": "Dê um abraço de 10 segundos e envie uma foto (com permissão da pessoa).",
+            "icon": "🤗",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "nature_sound_1",
+            "title": "Ouvir o Som da Natureza por 3 Minutos",
+            "description": "Ouça sons da natureza por 3 minutos e envie uma foto do ambiente.",
+            "icon": "🌳",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "posture_1",
+            "title": "Sentar com Postura Correta por 2 Minutos",
+            "description": "Sente-se com postura correta por 2 minutos e envie uma foto.",
+            "icon": "🪑",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "slow_eat_1",
+            "title": "Comer Lentamente 1 Refeição",
+            "description": "Coma uma refeição lentamente e envie uma foto do prato.",
+            "icon": "🍽️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "no_sugar_1",
+            "title": "Evitar Açúcar por 1 Refeição",
+            "description": "Evite açúcar em uma refeição e envie uma foto do prato.",
+            "icon": "🚫",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "deep_breath_2",
+            "title": "Inspirar Profundamente e Expirar Lentamente 5 Vezes",
+            "description": "Faça 5 respirações profundas e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "goal_1",
+            "title": "Anotar 1 Meta do Dia",
+            "description": "Escreva uma meta para o dia e envie uma foto da anotação.",
+            "icon": "📝",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "pushups_1",
+            "title": "Fazer 5 Flexões",
+            "description": "Faça 5 flexões e envie uma foto ou vídeo do exercício.",
+            "icon": "💪",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "lemon_water_1",
+            "title": "Beber Água com Limão",
+            "description": "Beba um copo de água com limão e envie uma foto.",
+            "icon": "🍋",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "horizon_1",
+            "title": "Olhar para o Horizonte por 1 Minuto",
+            "description": "Olhe para o horizonte por 1 minuto e envie uma foto da vista.",
+            "icon": "🌅",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "green_food_1",
+            "title": "Comer Algo Verde",
+            "description": "Consuma um alimento verde e envie uma foto do prato.",
+            "icon": "🥦",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "podcast_1",
+            "title": "Ouvir um Podcast de 5 Minutos",
+            "description": "Ouça um podcast por 5 minutos e envie uma foto do dispositivo.",
+            "icon": "🎧",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "dance_1",
+            "title": "Colocar Música Animada e Dançar 2 Minutos",
+            "description": "Dance por 2 minutos com música animada e envie uma foto ou vídeo.",
+            "icon": "💃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "healthy_snack_1",
+            "title": "Preparar um Lanche Saudável",
+            "description": "Prepare um lanche saudável e envie uma foto do lanche.",
+            "icon": "🥪",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "breath_break_1",
+            "title": "Fazer uma Pausa de 2 Minutos para Respirar",
+            "description": "Faça uma pausa de 2 minutos para respirar e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "gratitude_2",
+            "title": "Agradecer Mentalmente a 3 Coisas",
+            "description": "Pense em 3 coisas pelas quais é grato e envie uma selfie.",
+            "icon": "🙏",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "organize_1",
+            "title": "Organizar um Pequeno Espaço da Casa",
+            "description": "Organize um canto da casa e envie uma foto antes e depois.",
+            "icon": "🧹",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "no_distractions_1",
+            "title": "Comer sem Distrações por 5 Minutos",
+            "description": "Coma sem celular ou TV por 5 minutos e envie uma foto do prato.",
+            "icon": "🍽️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "barefoot_1",
+            "title": "Caminhar Descalço na Grama por 2 Minutos",
+            "description": "Caminhe descalço na grama por 2 minutos e envie uma foto dos pés na grama.",
+            "icon": "🌿",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "bath_1",
+            "title": "Tomar um Banho Relaxante",
+            "description": "Tome um banho relaxante e envie uma foto do ambiente (ex.: velas, banheira).",
+            "icon": "🛁",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "chew_slowly_1",
+            "title": "Mastigar Devagar por 1 Refeição",
+            "description": "Mastigue lentamente uma refeição e envie uma foto do prato.",
+            "icon": "🍽️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "arm_stretch_1",
+            "title": "Fazer 1 Alongamento de Braços",
+            "description": "Alongue os braços por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "fiber_1",
+            "title": "Comer Algo Rico em Fibras",
+            "description": "Consuma um alimento rico em fibras e envie uma foto do prato.",
+            "icon": "🌾",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "low_salt_1",
+            "title": "Reduzir o Sal em 1 Refeição",
+            "description": "Evite sal em uma refeição e envie uma foto do prato.",
+            "icon": "🚫",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "inspiration_1",
+            "title": "Ler uma Frase Inspiradora",
+            "description": "Leia uma frase inspiradora e envie uma foto ou print da frase.",
+            "icon": "📜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "vitamin_c_1",
+            "title": "Comer um Alimento Rico em Vitamina C",
+            "description": "Consuma um alimento rico em vitamina C e envie uma foto.",
+            "icon": "🍊",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "breath_before_meal_1",
+            "title": "Respirar Fundo Antes de Cada Refeição",
+            "description": "Respire fundo antes de uma refeição e envie uma foto do prato.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "no_screens_1",
+            "title": "Desligar Telas 30 Minutos Antes de Dormir",
+            "description": "Evite telas por 30 minutos antes de dormir e envie uma foto do ambiente.",
+            "icon": "🌙",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "beans_1",
+            "title": "Comer 1 Porção de Feijão ou Lentilha",
+            "description": "Inclua feijão ou lentilha na sua alimentação e envie uma foto do prato.",
+            "icon": "🥣",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "water_morning_1",
+            "title": "Beber 1 Copo de Água ao Acordar",
+            "description": "Beba um copo de água ao acordar e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "guided_meditation_1",
+            "title": "Ouvir uma Meditação Guiada de 2 Minutos",
+            "description": "Ouça uma meditação guiada por 2 minutos e envie uma foto do dispositivo.",
+            "icon": "🧘",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "yogurt_1",
+            "title": "Comer um Iogurte Natural",
+            "description": "Consuma um iogurte natural e envie uma foto do iogurte.",
+            "icon": "🥛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "journal_1",
+            "title": "Escrever Algo Bom que Aconteceu no Dia",
+            "description": "Escreva algo positivo que aconteceu no dia e envie uma foto da anotação.",
+            "icon": "📝",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "leg_stretch_1",
+            "title": "Alongar as Pernas por 1 Minuto",
+            "description": "Alongue as pernas por 1 minuto e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "egg_1",
+            "title": "Comer 1 Ovo Cozido",
+            "description": "Consuma um ovo cozido e envie uma foto do ovo.",
+            "icon": "🥚",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "stairs_2",
+            "title": "Usar as Escadas em Vez do Elevador",
+            "description": "Use escadas em vez do elevador e envie uma foto das escadas.",
+            "icon": "🪜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "fish_1",
+            "title": "Comer Peixe no Almoço ou Jantar",
+            "description": "Inclua peixe na sua alimentação e envie uma foto do prato.",
+            "icon": "🐟",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "no_soda_1",
+            "title": "Evitar Refrigerante por 1 Dia",
+            "description": "Evite refrigerante por um dia e envie uma foto da sua bebida alternativa.",
+            "icon": "🚫",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "silence_1",
+            "title": "Ficar em Silêncio por 1 Minuto",
+            "description": "Fique em silêncio por 1 minuto e envie uma foto do ambiente.",
+            "icon": "🤫",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "thank_someone_1",
+            "title": "Agradecer a Alguém Pessoalmente",
+            "description": "Agradeça alguém pessoalmente e envie uma selfie com a pessoa (se possível).",
+            "icon": "🙏",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "colorful_plate_1",
+            "title": "Comer 1 Prato Colorido",
+            "description": "Prepare um prato colorido e envie uma foto do prato.",
+            "icon": "🍽️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "belly_breath_1",
+            "title": "Praticar Respiração Abdominal por 1 Minuto",
+            "description": "Faça respiração abdominal por 1 minuto e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "healthy_breakfast_1",
+            "title": "Tomar um Café da Manhã Saudável",
+            "description": "Prepare um café da manhã saudável e envie uma foto do prato.",
+            "icon": "🥐",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "plank_1",
+            "title": "Fazer 10 Segundos de Prancha Abdominal",
+            "description": "Faça 10 segundos de prancha e envie uma foto ou vídeo do exercício.",
+            "icon": "💪",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "salad_1",
+            "title": "Comer uma Salada Antes da Refeição",
+            "description": "Coma uma salada antes da refeição e envie uma foto da salada.",
+            "icon": "🥗",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "birds_1",
+            "title": "Ouvir o Canto dos Pássaros",
+            "description": "Ouça o canto dos pássaros por 2 minutos e envie uma foto do ambiente.",
+            "icon": "🐦",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "whole_grain_1",
+            "title": "Comer Algo Integral",
+            "description": "Consuma um alimento integral e envie uma foto do alimento.",
+            "icon": "🌾",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "shoulder_massage_1",
+            "title": "Massagear os Ombros por 1 Minuto",
+            "description": "Massageie seus ombros por 1 minuto e envie uma foto ou vídeo.",
+            "icon": "💆",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "soup_1",
+            "title": "Comer uma Sopa Nutritiva",
+            "description": "Prepare uma sopa nutritiva e envie uma foto do prato.",
+            "icon": "🥣",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sunscreen_1",
+            "title": "Passar Protetor Solar pela Manhã",
+            "description": "Aplique protetor solar pela manhã e envie uma foto do produto.",
+            "icon": "🧴",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "pineapple_1",
+            "title": "Comer 1 Fatia de Abacaxi",
+            "description": "Consuma uma fatia de abacaxi e envie uma foto.",
+            "icon": "🍍",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "relax_1",
+            "title": "Sentar em Silêncio com os Olhos Fechados",
+            "description": "Fique em silêncio com olhos fechados por 1 minuto e envie uma foto.",
+            "icon": "🤫",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "smoothie_1",
+            "title": "Preparar um Smoothie Saudável",
+            "description": "Prepare um smoothie saudável e envie uma foto do smoothie.",
+            "icon": "🥤",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "bike_1",
+            "title": "Andar de Bicicleta por 5 Minutos",
+            "description": "Ande de bicicleta por 5 minutos e envie uma foto da bicicleta ou do percurso.",
+            "icon": "🚴",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "watermelon_1",
+            "title": "Comer 1 Fatia de Melancia",
+            "description": "Consuma uma fatia de melancia e envie uma foto.",
+            "icon": "🍉",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "motivation_1",
+            "title": "Ler um Versículo ou Frase Motivadora",
+            "description": "Leia um versículo ou frase motivadora e envie uma foto ou print.",
+            "icon": "📜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "chia_1",
+            "title": "Comer 1 Colher de Semente de Chia",
+            "description": "Consuma uma colher de semente de chia e envie uma foto.",
+            "icon": "🌱",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "stairs_3",
+            "title": "Subir 5 Lances de Escada",
+            "description": "Suba 5 lances de escada e envie uma foto das escadas.",
+            "icon": "🪜",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "protein_breakfast_1",
+            "title": "Comer Algo Rico em Proteína no Café da Manhã",
+            "description": "Inclua proteína no café da manhã e envie uma foto do prato.",
+            "icon": "🥚",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jumping_jacks_2",
+            "title": "Fazer 15 Polichinelos",
+            "description": "Faça 15 polichinelos e envie uma foto ou vídeo do exercício.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "carrot_1",
+            "title": "Comer 1 Cenoura Crua",
+            "description": "Consuma uma cenoura crua e envie uma foto.",
+            "icon": "🥕",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "alternate_breath_1",
+            "title": "Praticar Respiração Alternada por 1 Minuto",
+            "description": "Faça respiração alternada por 1 minuto e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "calming_tea_1",
+            "title": "Beber um Chá Calmante Antes de Dormir",
+            "description": "Tome um chá calmante antes de dormir e envie uma foto da xícara.",
+            "icon": "☕",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "papaya_1",
+            "title": "Comer 1 Fatia de Mamão",
+            "description": "Consuma uma fatia de mamão e envie uma foto.",
+            "icon": "🥭",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sky_walk_1",
+            "title": "Caminhar Olhando para o Céu",
+            "description": "Caminhe olhando para o céu por 1 minuto e envie uma foto da vista.",
+            "icon": "🌌",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "iron_food_1",
+            "title": "Comer Algo Rico em Ferro",
+            "description": "Consuma um alimento rico em ferro e envie uma foto do prato.",
+            "icon": "🥩",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "no_phone_meal_1",
+            "title": "Guardar o Celular Durante a Refeição",
+            "description": "Coma uma refeição sem usar o celular e envie uma foto do prato.",
+            "icon": "📴",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "banana_1",
+            "title": "Comer 1 Banana",
+            "description": "Consuma uma banana e envie uma foto.",
+            "icon": "🍌",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "side_stretch_1",
+            "title": "Fazer 20 Segundos de Alongamento Lateral",
+            "description": "Faça alongamento lateral por 20 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "water_before_thirst_1",
+            "title": "Beber Água Antes de Sentir Sede",
+            "description": "Beba um copo de água antes de sentir sede e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "whole_bread_1",
+            "title": "Comer uma Fatia de Pão Integral",
+            "description": "Consuma uma fatia de pão integral e envie uma foto.",
+            "icon": "🍞",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "cold_shower_1",
+            "title": "Tomar um Banho Frio",
+            "description": "Tome um banho frio e envie uma foto do chuveiro ou ambiente.",
+            "icon": "🚿",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "cucumber_1",
+            "title": "Comer uma Porção de Pepino",
+            "description": "Consuma uma porção de pepino e envie uma foto.",
+            "icon": "🥒",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "healthy_read_1",
+            "title": "Ler sobre um Assunto Saudável por 2 Minutos",
+            "description": "Leia sobre saúde por 2 minutos e envie uma foto ou print.",
+            "icon": "📖",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "fermented_food_1",
+            "title": "Comer um Alimento Fermentado",
+            "description": "Consuma um alimento fermentado (ex.: iogurte, kombucha) e envie uma foto.",
+            "icon": "🥛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sing_1",
+            "title": "Cantar uma Música Inteira",
+            "description": "Cante uma música inteira e envie uma foto ou vídeo do momento.",
+            "icon": "🎤",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "pumpkin_1",
+            "title": "Comer uma Porção de Abóbora",
+            "description": "Consuma uma porção de abóbora e envie uma foto do prato.",
+            "icon": "🎃",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "rest_position_1",
+            "title": "Ficar 1 Minuto em Posição de Descanso",
+            "description": "Fique em uma posição de descanso por 1 minuto e envie uma foto.",
+            "icon": "🛌",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "flavored_water_1",
+            "title": "Beber Água Aromatizada Naturalmente",
+            "description": "Beba água aromatizada com frutas ou ervas e envie uma foto.",
+            "icon": "💧",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "mango_1",
+            "title": "Comer uma Fatia de Manga",
+            "description": "Consuma uma fatia de manga e envie uma foto.",
+            "icon": "🥭",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "stretches_1",
+            "title": "Fazer 5 Alongamentos Diferentes",
+            "description": "Faça 5 alongamentos diferentes e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "warm_water_1",
+            "title": "Beber Água Morna pela Manhã",
+            "description": "Beba um copo de água morna pela manhã e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "grapes_1",
+            "title": "Comer um Punhado de Uvas",
+            "description": "Consuma um punhado de uvas e envie uma foto.",
+            "icon": "🍇",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "deep_breath_3",
+            "title": "Fazer 1 Minuto de Respiração Profunda",
+            "description": "Faça respiração profunda por 1 minuto e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "melon_1",
+            "title": "Comer uma Fatia de Melão",
+            "description": "Consuma uma fatia de melão e envie uma foto.",
+            "icon": "🍈",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "walk_no_phone_1",
+            "title": "Caminhar 10 Minutos sem Celular",
+            "description": "Caminhe por 10 minutos sem celular e envie uma foto do percurso.",
+            "icon": "🚶",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "calcium_food_1",
+            "title": "Comer um Alimento Rico em Cálcio",
+            "description": "Consuma um alimento rico em cálcio e envie uma foto do prato.",
+            "icon": "🥛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "crunches_1",
+            "title": "Fazer 1 Série de 15 Abdominais",
+            "description": "Faça 15 abdominais e envie uma foto ou vídeo do exercício.",
+            "icon": "💪",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "honey_1",
+            "title": "Comer uma Colher de Mel",
+            "description": "Consuma uma colher de mel e envie uma foto.",
+            "icon": "🍯",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "water_plants_1",
+            "title": "Regar Plantas",
+            "description": "Regue suas plantas e envie uma foto do momento.",
+            "icon": "🌱",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "white_cheese_1",
+            "title": "Comer 1 Fatia de Queijo Branco",
+            "description": "Consuma uma fatia de queijo branco e envie uma foto.",
+            "icon": "🧀",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "motivational_phrase_1",
+            "title": "Escrever 1 Frase de Motivação",
+            "description": "Escreva uma frase motivadora e envie uma foto da anotação.",
+            "icon": "📝",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "sweet_potato_1",
+            "title": "Comer uma Batata-Doce Cozida",
+            "description": "Consuma uma batata-doce cozida e envie uma foto do prato.",
+            "icon": "🥔",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "classical_music_1",
+            "title": "Ouvir Música Clássica por 3 Minutos",
+            "description": "Ouça música clássica por 3 minutos e envie uma foto do dispositivo.",
+            "icon": "🎶",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "peanuts_1",
+            "title": "Comer um Punhado de Amendoim sem Sal",
+            "description": "Consuma um punhado de amendoim sem sal e envie uma foto.",
+            "icon": "🥜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "floor_sit_1",
+            "title": "Sentar-se no Chão por 1 Minuto para Alongar",
+            "description": "Sente-se no chão por 1 minuto para alongar e envie uma foto.",
+            "icon": "🧘",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "pear_1",
+            "title": "Comer 1 Fatia de Pera",
+            "description": "Consuma uma fatia de pera e envie uma foto.",
+            "icon": "🍐",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jumping_jacks_3",
+            "title": "Fazer 20 Polichinelos",
+            "description": "Faça 20 polichinelos e envie uma foto ou vídeo do exercício.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "potassium_food_1",
+            "title": "Comer Algo Rico em Potássio",
+            "description": "Consuma um alimento rico em potássio e envie uma foto do prato.",
+            "icon": "🍌",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "slow_breath_1",
+            "title": "Respirar Lentamente por 2 Minutos",
+            "description": "Respire lentamente por 2 minutos e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "flaxseed_1",
+            "title": "Comer uma Colher de Linhaça",
+            "description": "Consuma uma colher de linhaça e envie uma foto.",
+            "icon": "🌱",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "wake_early_1",
+            "title": "Acordar 10 Minutos Mais Cedo",
+            "description": "Acorde 10 minutos mais cedo e envie uma foto do seu despertador.",
+            "icon": "⏰",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "tomato_1",
+            "title": "Comer 1 Tomate Cru",
+            "description": "Consuma um tomate cru e envie uma foto.",
+            "icon": "🍅",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "incline_pushups_1",
+            "title": "Fazer 5 Flexões Inclinadas",
+            "description": "Faça 5 flexões inclinadas e envie uma foto ou vídeo.",
+            "icon": "💪",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "kiwi_1",
+            "title": "Comer uma Fatia de Kiwi",
+            "description": "Consuma uma fatia de kiwi e envie uma foto.",
+            "icon": "🥝",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sun_morning_1",
+            "title": "Tomar Sol pela Manhã",
+            "description": "Tome sol pela manhã por 5 minutos e envie uma foto do momento.",
+            "icon": "☀️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "beet_1",
+            "title": "Comer 1 Porção de Beterraba",
+            "description": "Consuma uma porção de beterraba e envie uma foto do prato.",
+            "icon": "🥬",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "eyes_closed_1",
+            "title": "Fechar os Olhos e Relaxar por 1 Minuto",
+            "description": "Feche os olhos e relaxe por 1 minuto, envie uma foto do ambiente.",
+            "icon": "🤫",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "date_1",
+            "title": "Comer 1 Tâmara",
+            "description": "Consuma uma tâmara e envie uma foto.",
+            "icon": "🫒",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "motivational_walk_1",
+            "title": "Caminhar Enquanto Ouve Algo Motivador",
+            "description": "Caminhe por 5 minutos ouvindo algo motivador e envie uma foto do percurso.",
+            "icon": "🚶",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "sunflower_seeds_1",
+            "title": "Comer um Punhado de Sementes de Girassol",
+            "description": "Consuma um punhado de sementes de girassol e envie uma foto.",
+            "icon": "🌻",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "gratitude_bed_1",
+            "title": "Praticar Gratidão Antes de Dormir",
+            "description": "Pratique gratidão antes de dormir e envie uma foto do ambiente.",
+            "icon": "🙏",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "avocado_1",
+            "title": "Comer uma Fatia de Abacate",
+            "description": "Consuma uma fatia de abacate e envie uma foto.",
+            "icon": "🥑",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "neck_stretch_1",
+            "title": "Fazer 1 Alongamento de Pescoço",
+            "description": "Alongue o pescoço por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "strawberries_1",
+            "title": "Comer 1 Punhado de Morangos",
+            "description": "Consuma um punhado de morangos e envie uma foto.",
+            "icon": "🍓",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "milk_1",
+            "title": "Tomar um Copo de Leite",
+            "description": "Tome um copo de leite e envie uma foto do copo.",
+            "icon": "🥛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "watermelon_2",
+            "title": "Comer 1 Fatia de Melancia",
+            "description": "Consuma uma fatia de melancia e envie uma foto.",
+            "icon": "🍉",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "yoga_1",
+            "title": "Fazer 5 Minutos de Ioga",
+            "description": "Pratique ioga por 5 minutos e envie uma foto ou vídeo.",
+            "icon": "🧘",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "black_beans_1",
+            "title": "Comer 1 Porção de Feijão Preto",
+            "description": "Consuma uma porção de feijão preto e envie uma foto do prato.",
+            "icon": "🥣",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "nose_breath_1",
+            "title": "Inspirar pelo Nariz e Expirar pela Boca 10 Vezes",
+            "description": "Faça 10 respirações pelo nariz e boca e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "green_apple_1",
+            "title": "Comer 1 Fatia de Maçã Verde",
+            "description": "Consuma uma fatia de maçã verde e envie uma foto.",
+            "icon": "🍏",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jump_rope_1",
+            "title": "Pular Corda por 1 Minuto",
+            "description": "Pule corda por 1 minuto e envie uma foto ou vídeo.",
+            "icon": "🪢",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "raw_salad_1",
+            "title": "Comer um Prato de Salada Crua",
+            "description": "Prepare uma salada crua e envie uma foto do prato.",
+            "icon": "🥗",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "nature_walk_1",
+            "title": "Caminhar Olhando a Natureza",
+            "description": "Caminhe por 5 minutos observando a natureza e envie uma foto.",
+            "icon": "🌳",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "guava_1",
+            "title": "Comer 1 Fatia de Goiaba",
+            "description": "Consuma uma fatia de goiaba e envie uma foto.",
+            "icon": "🍈",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "ankle_stretch_1",
+            "title": "Fazer Alongamento dos Tornozelos",
+            "description": "Alongue os tornozelos por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "walnuts_1",
+            "title": "Comer um Punhado de Nozes",
+            "description": "Consuma um punhado de nozes e envie uma foto.",
+            "icon": "🥜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "hot_shower_1",
+            "title": "Tomar um Banho Quente Relaxante",
+            "description": "Tome um banho quente relaxante e envie uma foto do ambiente.",
+            "icon": "🛁",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "papaya_2",
+            "title": "Comer uma Fatia de Mamão",
+            "description": "Consuma uma fatia de mamão e envie uma foto.",
+            "icon": "🥭",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "back_stretch_1",
+            "title": "Alongar as Costas por 30 Segundos",
+            "description": "Alongue as costas por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "granola_1",
+            "title": "Comer uma Colher de Granola",
+            "description": "Consuma uma colher de granola e envie uma foto.",
+            "icon": "🥣",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "back_walk_1",
+            "title": "Caminhar de Costas por 30 Segundos",
+            "description": "Caminhe de costas por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🚶",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "dark_chocolate_1",
+            "title": "Comer 1 Pedaço de Chocolate Amargo",
+            "description": "Consuma um pedaço de chocolate amargo e envie uma foto.",
+            "icon": "🍫",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sun_sit_1",
+            "title": "Sentar no Sol por 5 Minutos",
+            "description": "Sente-se ao sol por 5 minutos e envie uma foto do momento.",
+            "icon": "☀️",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "melon_2",
+            "title": "Comer 1 Fatia de Melão",
+            "description": "Consuma uma fatia de melão e envie uma foto.",
+            "icon": "🍈",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "balance_1",
+            "title": "Fazer 1 Exercício de Equilíbrio",
+            "description": "Faça um exercício de equilíbrio por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "⚖️",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "raisins_1",
+            "title": "Comer um Punhado de Passas",
+            "description": "Consuma um punhado de passas e envie uma foto.",
+            "icon": "🍇",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "cold_water_1",
+            "title": "Tomar um Copo de Água Gelada",
+            "description": "Beba um copo de água gelada e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "scrambled_egg_1",
+            "title": "Comer 1 Ovo Mexido",
+            "description": "Consuma um ovo mexido e envie uma foto do prato.",
+            "icon": "🥚",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sea_sound_1",
+            "title": "Ouvir o Som do Mar por 2 Minutos",
+            "description": "Ouça o som do mar por 2 minutos e envie uma foto do ambiente.",
+            "icon": "🌊",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "corn_1",
+            "title": "Comer 1 Porção de Milho Cozido",
+            "description": "Consuma uma porção de milho cozido e envie uma foto do prato.",
+            "icon": "🌽",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "arm_stretch_2",
+            "title": "Alongar os Braços sobre a Cabeça por 20 Segundos",
+            "description": "Alongue os braços sobre a cabeça por 20 segundos e envie uma foto.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "peas_1",
+            "title": "Comer 1 Porção de Ervilha",
+            "description": "Consuma uma porção de ervilha e envie uma foto do prato.",
+            "icon": "🫛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "slow_walk_1",
+            "title": "Andar Devagar por 2 Minutos",
+            "description": "Caminhe devagar por 2 minutos e envie uma foto do percurso.",
+            "icon": "🚶",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "peanut_butter_1",
+            "title": "Comer 1 Colher de Pasta de Amendoim Natural",
+            "description": "Consuma uma colher de pasta de amendoim natural e envie uma foto.",
+            "icon": "🥜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "lie_down_1",
+            "title": "Deitar no Chão e Respirar Fundo por 1 Minuto",
+            "description": "Deite no chão e respire fundo por 1 minuto, envie uma foto.",
+            "icon": "🛌",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "fresh_cheese_1",
+            "title": "Comer 1 Pedaço de Queijo Fresco",
+            "description": "Consuma um pedaço de queijo fresco e envie uma foto.",
+            "icon": "🧀",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "hill_walk_1",
+            "title": "Subir uma Ladeira Andando",
+            "description": "Suba uma ladeira andando e envie uma foto do percurso.",
+            "icon": "🏞️",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "tangerine_1",
+            "title": "Comer 1 Fatia de Tangerina",
+            "description": "Consuma uma fatia de tangerina e envie uma foto.",
+            "icon": "🍊",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "water_before_bed_1",
+            "title": "Beber 1 Copo de Água Antes de Dormir",
+            "description": "Beba um copo de água antes de dormir e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "broccoli_1",
+            "title": "Comer 1 Porção de Brócolis",
+            "description": "Consuma uma porção de brócolis e envie uma foto do prato.",
+            "icon": "🥦",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "wide_steps_1",
+            "title": "Caminhar com Passos Largos por 1 Minuto",
+            "description": "Caminhe com passos largos por 1 minuto e envie uma foto ou vídeo.",
+            "icon": "🚶",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "oats_1",
+            "title": "Comer 1 Colher de Aveia",
+            "description": "Consuma uma colher de aveia e envie uma foto.",
+            "icon": "🥣",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "cross_legs_1",
+            "title": "Sentar no Chão com as Pernas Cruzadas por 1 Minuto",
+            "description": "Sente-se no chão com pernas cruzadas por 1 minuto e envie uma foto.",
+            "icon": "🧘",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "baked_potato_1",
+            "title": "Comer 1 Pedaço de Batata Assada",
+            "description": "Consuma um pedaço de batata assada e envie uma foto do prato.",
+            "icon": "🥔",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "morning_breath_1",
+            "title": "Respirar Profundamente ao Acordar",
+            "description": "Respire profundamente ao acordar e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "fig_1",
+            "title": "Comer 1 Fatia de Figo",
+            "description": "Consuma uma fatia de figo e envie uma foto.",
+            "icon": "🍈",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "indoor_walk_1",
+            "title": "Caminhar Dentro de Casa por 3 Minutos",
+            "description": "Caminhe dentro de casa por 3 minutos e envie uma foto do ambiente.",
+            "icon": "🚶",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "rye_bread_1",
+            "title": "Comer 1 Fatia de Pão de Centeio",
+            "description": "Consuma uma fatia de pão de centeio e envie uma foto.",
+            "icon": "🍞",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "sprint_1",
+            "title": "Fazer 10 Segundos de Corrida Parada",
+            "description": "Faça 10 segundos de corrida parada e envie uma foto ou vídeo.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "greek_yogurt_1",
+            "title": "Comer 1 Colher de Iogurte Grego",
+            "description": "Consuma uma colher de iogurte grego e envie uma foto.",
+            "icon": "🥛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "rain_sound_1",
+            "title": "Ouvir Sons de Chuva por 2 Minutos",
+            "description": "Ouça sons de chuva por 2 minutos e envie uma foto do ambiente.",
+            "icon": "🌧️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "kale_1",
+            "title": "Comer 1 Porção de Couve",
+            "description": "Consuma uma porção de couve e envie uma foto do prato.",
+            "icon": "🥬",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "calf_stretch_1",
+            "title": "Fazer Alongamento de Panturrilha",
+            "description": "Alongue a panturrilha por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🤸",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "brazil_nut_1",
+            "title": "Comer 1 Punhado de Castanha-do-Pará",
+            "description": "Consuma um punhado de castanha-do-pará e envie uma foto.",
+            "icon": "🥜",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "slow_water_1",
+            "title": "Beber Água Devagar",
+            "description": "Beba um copo de água devagar e envie uma foto do copo.",
+            "icon": "💧",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "peach_1",
+            "title": "Comer 1 Fatia de Pêssego",
+            "description": "Consuma uma fatia de pêssego e envie uma foto.",
+            "icon": "🍑",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jump_in_place_1",
+            "title": "Pular no Mesmo Lugar por 30 Segundos",
+            "description": "Pule no mesmo lugar por 30 segundos e envie uma foto ou vídeo.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "chickpeas_1",
+            "title": "Comer 1 Punhado de Grão-de-Bico",
+            "description": "Consuma um punhado de grão-de-bico e envie uma foto.",
+            "icon": "🫛",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "weight_walk_1",
+            "title": "Caminhar Segurando Garrafas como Pesos",
+            "description": "Caminhe por 2 minutos segurando garrafas como pesos e envie uma foto.",
+            "icon": "🏋️",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "cucumber_2",
+            "title": "Comer 1 Pedaço de Pepino",
+            "description": "Consuma um pedaço de pepino e envie uma foto.",
+            "icon": "🥒",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "fresh_air_1",
+            "title": "Tomar Ar Fresco na Janela por 1 Minuto",
+            "description": "Tome ar fresco na janela por 1 minuto e envie uma foto da vista.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "raw_beet_1",
+            "title": "Comer 1 Fatia de Beterraba Crua",
+            "description": "Consuma uma fatia de beterraba crua e envie uma foto.",
+            "icon": "🥬",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "count_breath_1",
+            "title": "Respirar Contando até 4 na Inspiração",
+            "description": "Respire contando até 4 na inspiração por 1 minuto e envie uma foto do ambiente.",
+            "icon": "🌬️",
+            "reward": 5,
+            "completed": false
+        },
+        {
+            "id": "spinach_1",
+            "title": "Comer 1 Porção de Espinafre",
+            "description": "Consuma uma porção de espinafre e envie uma foto do prato.",
+            "icon": "🥬",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "jumping_jacks_4",
+            "title": "Fazer 1 Minuto de Polichinelos",
+            "description": "Faça 1 minuto de polichinelos e envie uma foto ou vídeo do exercício.",
+            "icon": "🏃",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "pumpkin_seeds_1",
+            "title": "Comer 1 Colher de Semente de Abóbora",
+            "description": "Consuma uma colher de semente de abóbora e envie uma foto.",
+            "icon": "🌱",
+            "reward": 7,
+            "completed": false
+        },
+        {
+            "id": "chair_exercise_1",
+            "title": "Levantar e Sentar da Cadeira 10 Vezes",
+            "description": "Levante e sente da cadeira 10 vezes e envie uma foto ou vídeo.",
+            "icon": "🪑",
+            "reward": 10,
+            "completed": false
+        },
+        {
+            "id": "cabbage_1",
+            "title": "Comer 1 Porção de Repolho",
+            "description": "Consuma uma porção de repolho e envie uma foto do prato.",
+            "icon": "🥗",
+            "reward": 7,
+            "completed": false
+        }
+    ],
+    "fixedMissions": [
+        {
+            "id": "Seguir no X 2",
+            "title": "Seguir no X",
+            "description": "Siga nossa conta oficial no X e tire um print da tela.",
+            "icon": "🐦",
+            "reward": 30,
+            "completed": false,
+            "url": "https://x.com/seuperfil"
+        },
+        {
+            "id": "follow_instagram_1",
+            "title": "Seguir no Instagram",
+            "description": "Siga nosso perfil no Instagram e compartilhe uma foto.",
+            "icon": "📸",
+            "reward": 25,
+            "completed": false,
+            "url": "https://instagram.com/seuperfil"
+        },
+        {
+            "id": "share_x_1",
+            "title": "Compartilhar nosso post no X",
+            "description": "Compartilhe nosso último post no X e envie um print.",
+            "icon": "🔄",
+            "reward": 25,
+            "completed": false,
+            "url": "https://x.com/seuperfil/post"
+        },
+        {
+            "id": "join_telegram_1",
+            "title": "Entrar no nosso grupo Telegram",
+            "description": "Junte-se ao nosso grupo no Telegram e envie um print.",
+            "icon": "📬",
+            "reward": 30,
+            "completed": false,
+            "url": "https://t.me/seugrupo"
+        }
+    ]
+}
