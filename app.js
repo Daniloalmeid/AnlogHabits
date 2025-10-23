@@ -1,10 +1,10 @@
-/* global window, web3Enable, web3FromSource, ApiPromise, WsProvider */
+/* global window, ApiPromise, WsProvider */
 
 class AnlogHabitsApp {
     constructor() {
         console.log('Construindo AnlogHabitsApp...');
         this.wallet = null;
-        this.api = null; // Para Polkadot API (Analog)
+        this.api = null;
         this.userData = {
             totalBalance: 294,
             stakeBalance: 0,
@@ -24,7 +24,7 @@ class AnlogHabitsApp {
             stakeLockEnd: null,
             lotteryAttempts: null,
             walletAddress: null,
-            lotteryWinnings: 0 // Rastreia ganhos de sorteios no spendingBalance
+            lotteryWinnings: 0
         };
         this.allMissions = [];
         this.fixedMissions = [];
@@ -32,12 +32,10 @@ class AnlogHabitsApp {
         this.currentPage = 'home';
         this.currentMission = null;
         this.nextMissionReset = null;
-        // Taxa de rendimento ajustada para 300% ao ano
-        this.minuteYieldRate = 300 / (365 * 24 * 60) / 100; // 300% ao ano
+        this.minuteYieldRate = 300 / (365 * 24 * 60) / 100;
         this.secondYieldRate = this.minuteYieldRate / 60;
         this.yieldInterval = null;
         this.uiYieldInterval = null;
-        // RPC da mainnet Analog
         this.rpcEndpoint = 'wss://timechain-rpc.analog.one';
     }
 
@@ -52,12 +50,7 @@ class AnlogHabitsApp {
             this.updateUI();
             this.setupEventListeners();
             this.startBackupInterval();
-            // Tentar reconexão automática com Talisman
             try {
-                if (typeof web3Enable === 'undefined') {
-                    throw new Error('Biblioteca @polkadot/extension-dapp não carregada. Verifique o index.html.');
-                }
-                await web3Enable('AnlogHabits');
                 console.log('Tentando reconexão automática com Talisman...');
                 await this.connectWallet(true);
             } catch (error) {
@@ -100,10 +93,9 @@ class AnlogHabitsApp {
                     stakeLockEnd: parsedData.stakeLockEnd || null,
                     lastMissionResetDate: isNaN(lastMissionResetDate) ? Date.now() : lastMissionResetDate,
                     lotteryAttempts: parsedData.lotteryAttempts || null,
-                    lotteryWinnings: parsedData.lotteryWinnings || 0,
-                    walletAddress: parsedData.walletAddress || null
+                    walletAddress: parsedData.walletAddress || null,
+                    lotteryWinnings: parsedData.lotteryWinnings || 0
                 };
-                // Inicializar lotteryAttempts se não estiver definido
                 if (!this.userData.lotteryAttempts) {
                     const today = this.getCurrentDate();
                     this.userData.lotteryAttempts = {
@@ -153,15 +145,14 @@ class AnlogHabitsApp {
     selectDailyMissions(forceReset = false) {
         console.log('Selecionando missões diárias...');
         const now = new Date();
-        // Ajustar para horário de Brasília (UTC-3)
-        const brasiliaOffset = -3 * 60 * 60 * 1000; // -3 horas em milissegundos
+        const brasiliaOffset = -3 * 60 * 60 * 1000;
         const nowBrasilia = new Date(now.getTime() + brasiliaOffset);
         const today21hBrasilia = new Date(nowBrasilia);
-        today21hBrasilia.setHours(21, 0, 0, 0); // Definir para 21:00:00.000
+        today21hBrasilia.setHours(21, 0, 0, 0);
         if (nowBrasilia >= today21hBrasilia) {
-            today21hBrasilia.setDate(today21hBrasilia.getDate() + 1); // Próximo reset é amanhã às 21h
+            today21hBrasilia.setDate(today21hBrasilia.getDate() + 1);
         }
-        const nextResetTime = today21hBrasilia.getTime() - brasiliaOffset; // Converter de volta para UTC
+        const nextResetTime = today21hBrasilia.getTime() - brasiliaOffset;
         const timeSinceLastReset = now.getTime() - this.userData.lastMissionResetDate;
 
         console.log('lastMissionResetDate:', new Date(this.userData.lastMissionResetDate));
@@ -169,7 +160,6 @@ class AnlogHabitsApp {
         console.log('forceReset:', forceReset, 'dailyMissions length:', this.userData.dailyMissions.length);
         console.log('Next reset (21h Brasília):', new Date(nextResetTime));
 
-        // Verificar se as missões diárias são válidas
         const areMissionsValid = this.userData.dailyMissions.length > 0 &&
             this.userData.dailyMissions.every(mission =>
                 mission.id && this.allMissions.some(am => am.id === mission.id)
@@ -182,11 +172,9 @@ class AnlogHabitsApp {
                 this.showToast('Nenhuma missão diária disponível. Tente novamente mais tarde.', 'error');
                 return;
             }
-            // Manter apenas missões fixas concluídas
             this.userData.completedMissions = this.userData.completedMissions.filter(cm => 
                 this.fixedMissions.some(fm => fm.id === cm.id)
             );
-            // Selecionar novas missões
             const shuffledMissions = [...this.allMissions].sort(() => Math.random() - 0.5);
             this.missions = shuffledMissions.slice(0, 5).map(mission => ({
                 ...mission,
@@ -196,7 +184,6 @@ class AnlogHabitsApp {
             this.userData.dailyMissions = this.missions;
             this.userData.lastMissionResetDate = Date.now();
             this.nextMissionReset = nextResetTime;
-            // Resetar lotteryAttempts ao resetar missões diárias
             this.userData.lotteryAttempts = {
                 date: this.getCurrentDate(),
                 attempts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 }
@@ -217,10 +204,9 @@ class AnlogHabitsApp {
 
     startMissionTimer() {
         console.log('Iniciando temporizador de missões');
-        // Garantir que nextMissionReset esteja inicializado para 21h de Brasília
         if (!this.nextMissionReset || isNaN(this.nextMissionReset)) {
             const now = new Date();
-            const brasiliaOffset = -3 * 60 * 60 * 1000; // UTC-3
+            const brasiliaOffset = -3 * 60 * 60 * 1000;
             const nowBrasilia = new Date(now.getTime() + brasiliaOffset);
             const nextReset = new Date(nowBrasilia);
             nextReset.setHours(21, 0, 0, 0);
@@ -238,7 +224,7 @@ class AnlogHabitsApp {
 
         const updateTimer = () => {
             const now = new Date();
-            const brasiliaOffset = -3 * 60 * 60 * 1000; // UTC-3
+            const brasiliaOffset = -3 * 60 * 60 * 1000;
             const nowBrasilia = new Date(now.getTime() + brasiliaOffset);
             const today21hBrasilia = new Date(nowBrasilia);
             today21hBrasilia.setHours(21, 0, 0, 0);
@@ -257,11 +243,6 @@ class AnlogHabitsApp {
                 this.userData.lastMissionResetDate = Date.now();
                 this.saveUserData();
                 this.showToast('Missões diárias resetadas com sucesso!', 'success');
-                // Calcular próximo reset para 21h de Brasília do próximo dia
-                const nextReset = new Date(nowBrasilia);
-                nextReset.setHours(21, 0, 0, 0);
-                nextReset.setDate(nextReset.getDate() + 1);
-                this.nextMissionReset = nextReset.getTime() - brasiliaOffset;
                 return;
             }
 
@@ -430,36 +411,19 @@ class AnlogHabitsApp {
         console.log(`Tentando conectar carteira Talisman (onlyIfTrusted: ${onlyIfTrusted})...`);
         this.showLoading('Conectando à carteira Talisman...');
         try {
-            // Verificar se a biblioteca @polkadot/extension-dapp está carregada
-            if (typeof web3Enable === 'undefined') {
-                throw new Error('Biblioteca @polkadot/extension-dapp não carregada. Verifique se está incluída no index.html e se a extensão Talisman está instalada.');
+            // Verificar a presença da extensão Talisman
+            const injected = window.injectedWeb3 || null;
+            if (!injected || !injected.talisman) {
+                throw new Error('Talisman não encontrado. Instale a extensão Talisman em talisman.xyz ou abra-a no navegador.');
             }
 
-            // Habilitar a extensão Talisman
-            const extensions = await web3Enable('AnlogHabits');
-            if (extensions.length === 0) {
-                throw new Error('Nenhuma extensão de carteira detectada. Por favor, instale a extensão Talisman em talisman.xyz e recarregue a página.');
-            }
-
-            // Encontrar a extensão Talisman
-            const talismanExtension = extensions.find(ext => ext.name === 'talisman');
-            if (!talismanExtension) {
-                throw new Error('Extensão Talisman não detectada. Verifique se está instalada e ativada em talisman.xyz.');
-            }
-
-            // Obter injector do Talisman
-            const injector = await web3FromSource('talisman');
-            if (!injector) {
-                throw new Error('Talisman injector não encontrado. Verifique se a extensão está ativa e configurada corretamente.');
-            }
-
-            // Conectar ao nó da Analog Mainnet
-            const provider = new WsProvider(this.rpcEndpoint);
-            this.api = await ApiPromise.create({ provider });
-            console.log('Conexão com o nó da Analog Mainnet estabelecida.');
+            // Solicitar autorização para a DApp
+            const nameApp = 'AnlogHabits';
+            const talisman = await injected.talisman.enable(nameApp);
 
             // Obter contas disponíveis
-            const accounts = await injector.accounts.get();
+            const accounts = await talisman.accounts.get();
+            console.log('Contas disponíveis:', accounts);
             if (accounts.length === 0) {
                 throw new Error('Nenhuma conta encontrada na carteira Talisman. Configure uma conta na extensão.');
             }
@@ -469,7 +433,23 @@ class AnlogHabitsApp {
             console.log('Carteira conectada com sucesso:', this.wallet);
             this.userData.walletAddress = this.wallet;
 
-            // Inicializar lotteryAttempts se não estiver definido
+            // Tentar conectar ao nó da Analog Mainnet
+            if (typeof WsProvider === 'undefined' || typeof ApiPromise === 'undefined') {
+                console.warn('Biblioteca @polkadot/api não carregada corretamente. Funcionalidades de blockchain limitadas.');
+                this.showToast('Não foi possível conectar ao nó da blockchain. Algumas funcionalidades podem estar limitadas.', 'warning');
+            } else {
+                try {
+                    const provider = new WsProvider(this.rpcEndpoint);
+                    this.api = await ApiPromise.create({ provider });
+                    console.log('Conexão com o nó da Analog Mainnet estabelecida.');
+                } catch (apiError) {
+                    console.error('Erro ao conectar ao nó da Analog:', apiError);
+                    this.showToast('Não foi possível conectar ao nó da blockchain. Algumas funcionalidades podem estar limitadas.', 'warning');
+                    this.api = null;
+                }
+            }
+
+            // Inicializar lotteryAttempts
             const today = this.getCurrentDate();
             if (!this.userData.lotteryAttempts || this.userData.lotteryAttempts.date !== today) {
                 this.userData.lotteryAttempts = {
@@ -477,8 +457,10 @@ class AnlogHabitsApp {
                     attempts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 }
                 };
             }
+
             this.showToast('Carteira Talisman conectada com sucesso!', 'success');
 
+            // Prosseguir com a exibição da interface mesmo se a conexão ao nó falhar
             const homePage = document.getElementById('home-page');
             if (homePage) homePage.style.display = 'none';
             const navbar = document.getElementById('navbar');
@@ -733,18 +715,12 @@ class AnlogHabitsApp {
         try {
             amount = parseFloat(amount.toFixed(5));
             if (isNaN(amount) || amount <= 0) {
-                console.error('Quantidade inválida para stake:', amount);
                 throw new Error('Por favor, insira uma quantidade válida (positivo).');
             }
             if (amount > 10000) {
-                console.error('Quantidade excede o limite máximo:', amount);
                 throw new Error('O stake voluntário não pode exceder 10.000 DET por transação.');
             }
             if ((this.userData.totalBalance || 0) < amount) {
-                console.error('Saldo insuficiente para stake:', {
-                    totalBalance: this.userData.totalBalance,
-                    amount
-                });
                 throw new Error(`Saldo insuficiente. Você tem ${(this.userData.totalBalance || 0).toFixed(5)} DET, mas tentou fazer stake de ${amount.toFixed(5)} DET.`);
             }
             this.userData.totalBalance -= amount;
@@ -766,14 +742,9 @@ class AnlogHabitsApp {
         try {
             amount = parseFloat(amount.toFixed(5));
             if (isNaN(amount) || amount <= 0) {
-                console.error('Quantidade inválida para retirada:', amount);
                 throw new Error('Por favor, insira uma quantidade válida (positivo).');
             }
             if ((this.userData.voluntaryStakeBalance || 0) < amount) {
-                console.error('Quantidade insuficiente no stake voluntário:', {
-                    voluntaryStakeBalance: this.userData.voluntaryStakeBalance,
-                    amount
-                });
                 throw new Error(`Quantidade insuficiente. Você tem ${(this.userData.voluntaryStakeBalance || 0).toFixed(5)} DET em stake voluntário, mas tentou retirar ${amount.toFixed(5)} DET.`);
             }
             const totalStake = this.userData.voluntaryStakeBalance || 0;
@@ -805,7 +776,6 @@ class AnlogHabitsApp {
             }
             const amount = this.userData.stakeBalance || 0;
             if (amount <= 0) {
-                console.error('Nenhum valor em stake obrigatório para retirar');
                 throw new Error('Nenhum valor disponível em stake obrigatório para retirada.');
             }
             const yieldAmount = (this.userData.fractionalYieldObligatory || 0) + (this.userData.dailyYieldObligatoryAccumulated || 0);
@@ -831,7 +801,6 @@ class AnlogHabitsApp {
         try {
             const amount = this.userData.voluntaryStakeBalance || 0;
             if (amount <= 0) {
-                console.error('Nenhum valor em stake voluntário para retirar');
                 throw new Error('Nenhum valor disponível em stake voluntário para retirada.');
             }
             const yieldAmount = (this.userData.fractionalYieldVoluntary || 0) + (this.userData.dailyYieldVoluntaryAccumulated || 0);
@@ -1026,188 +995,23 @@ class AnlogHabitsApp {
         if (completedMissions) completedMissions.textContent = `${completedCount}/${this.missions.length}`;
     }
 
-    saveUserData() {
-        console.log('Salvando dados do usuário no localStorage...');
-        try {
-            localStorage.setItem(`anloghabits_${this.wallet || 'default'}`, JSON.stringify(this.userData));
-            console.log('Dados do usuário salvos com sucesso');
-        } catch (error) {
-            console.error('Erro ao salvar dados do usuário:', error);
-            this.showToast('Erro ao salvar dados do usuário.', 'error');
-        }
-    }
-
-    startBackupInterval() {
-        console.log('Iniciando intervalo de backup automático');
-        setInterval(() => {
-            if (this.wallet) {
-                this.saveUserData();
-                console.log('Backup automático realizado');
-            }
-        }, 5 * 60 * 1000);
-    }
-
-    updateUI() {
-        console.log('Atualizando UI...');
-        try {
-            this.updateWalletPage();
-            this.updateShopPage();
-            this.updateMissionProgress();
-            this.updateStakeLockTimer();
-            this.updateWalletDisplay();
-            this.updateTransactionHistory();
-        } catch (error) {
-            console.error('Erro ao atualizar UI:', error);
-            this.showToast('Erro ao atualizar interface.', 'error');
-        }
-    }
-
-    updateWalletPage() {
-        const totalBalanceElement = document.getElementById('total-balance');
-        const stakeBalanceElement = document.getElementById('stake-balance');
-        const voluntaryStakeBalanceElement = document.getElementById('voluntary-stake-balance');
-        const spendingBalanceElement = document.getElementById('spending-balance');
-        const lotteryWinningsElement = document.getElementById('lottery-winnings');
-        const withdrawBtn = document.getElementById('withdraw-btn');
-        const withdrawMaxObligatoryBtn = document.getElementById('withdraw-max-obligatory-btn');
-        const withdrawMaxVoluntaryBtn = document.getElementById('withdraw-max-voluntary-btn');
-        const transferLotteryBtn = document.getElementById('transfer-lottery-btn');
-
-        if (totalBalanceElement) totalBalanceElement.textContent = (this.userData.totalBalance || 0).toFixed(5);
-        if (stakeBalanceElement) stakeBalanceElement.textContent = (this.userData.stakeBalance || 0).toFixed(5);
-        if (voluntaryStakeBalanceElement) voluntaryStakeBalanceElement.textContent = (this.userData.voluntaryStakeBalance || 0).toFixed(5);
-        if (spendingBalanceElement) spendingBalanceElement.textContent = (this.userData.spendingBalance || 0).toFixed(5);
-        if (lotteryWinningsElement) lotteryWinningsElement.textContent = (this.userData.lotteryWinnings || 0).toFixed(5);
-        if (withdrawBtn) withdrawBtn.disabled = (this.userData.totalBalance || 0) < 800;
-        if (withdrawMaxObligatoryBtn) {
-            const now = new Date();
-            withdrawMaxObligatoryBtn.disabled = !this.userData.stakeBalance || (this.userData.stakeLockEnd && new Date(this.userData.stakeLockEnd) > now);
-        }
-        if (withdrawMaxVoluntaryBtn) withdrawMaxVoluntaryBtn.disabled = !this.userData.voluntaryStakeBalance;
-        if (transferLotteryBtn) transferLotteryBtn.disabled = (this.userData.lotteryWinnings || 0) <= 0;
-    }
-
-    updateShopPage() {
-        const shopBalanceElement = document.getElementById('shop-balance');
-        if (shopBalanceElement) shopBalanceElement.textContent = (this.userData.spendingBalance || 0).toFixed(5);
-    }
-
-    updateTransactionHistory() {
-        const historyList = document.getElementById('transaction-history');
-        if (!historyList) return;
-        historyList.innerHTML = '';
-        this.userData.transactions.slice(-10).reverse().forEach(transaction => {
-            const transactionItem = document.createElement('div');
-            transactionItem.className = 'transaction-item';
-            const amountClass = transaction.amount >= 0 ? 'positive' : 'negative';
-            transactionItem.innerHTML = `
-                <div class="transaction-info">
-                    <span class="transaction-icon">${this.getTransactionIcon(transaction.type)}</span>
-                    <div class="transaction-details">
-                        <h4>${transaction.description}</h4>
-                        <p>${new Date(transaction.timestamp).toLocaleString()}</p>
-                    </div>
-                </div>
-                <span class="transaction-amount ${amountClass}">${transaction.amount.toFixed(5)} DET</span>
-            `;
-            historyList.appendChild(transactionItem);
-        });
-    }
-
-    getTransactionIcon(type) {
-        switch (type) {
-            case 'mission': return '🏆';
-            case 'stake': return '🔒';
-            case 'unstake': return '🔓';
-            case 'yield': return '💸';
-            case 'purchase': return '🛒';
-            case 'lottery': return '🎰';
-            case 'transfer': return '➡️';
-            default: return '💰';
-        }
-    }
-
-    addTransaction(type, description, amount) {
-        this.userData.transactions.push({
-            type,
-            description,
-            amount,
-            timestamp: new Date().toISOString()
-        });
-    }
-
     navigateTo(page) {
-        console.log('Navegando para:', page);
+        console.log('Navegando para página:', page);
         this.currentPage = page;
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
-        const pageElement = document.getElementById(`${page}-page`);
-        const navButton = document.querySelector(`.nav-button[data-page="${page}"]`);
-        if (pageElement) pageElement.classList.add('active');
-        if (navButton) navButton.classList.add('active');
-        if (page === 'missions') {
-            this.loadMissions();
-            this.updateMissionProgress();
-        }
-        if (page === 'wallet') this.updateWalletPage();
-        if (page === 'shop') this.updateShopPage();
-    }
+        const pages = document.querySelectorAll('.page');
+        const navButtons = document.querySelectorAll('.nav-button');
+        pages.forEach(p => p.classList.remove('active'));
+        navButtons.forEach(btn => btn.classList.remove('active'));
 
-    showToast(message, type = 'info') {
-        const toastContainer = document.getElementById('toast-container');
-        if (!toastContainer) {
-            console.warn('Container de toast não encontrado, usando alert.');
-            alert(`${type.toUpperCase()}: ${message}`);
-            return;
-        }
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.textContent = message;
-        toastContainer.appendChild(toast);
-        setTimeout(() => toast.remove(), 5000);
-    }
-
-    showLoading(message) {
-        const overlay = document.getElementById('loading-overlay');
-        if (overlay) {
-            overlay.querySelector('p').textContent = message;
-            overlay.classList.add('active');
-        }
-    }
-
-    hideLoading() {
-        const overlay = document.getElementById('loading-overlay');
-        if (overlay) overlay.classList.remove('active');
-    }
-
-    closeModal() {
-        const modal = document.getElementById('photo-modal');
-        if (modal) modal.classList.remove('active');
-        const photoInput = document.getElementById('photo-input');
-        const photoPreview = document.getElementById('photo-preview');
-        if (photoInput) photoInput.value = '';
-        if (photoPreview) photoPreview.innerHTML = '';
-        this.currentMission = null;
+        const targetPage = document.getElementById(`${page}-page`);
+        const targetButton = document.querySelector(`.nav-button[data-page="${page}"]`);
+        if (targetPage) targetPage.classList.add('active');
+        if (targetButton) targetButton.classList.add('active');
+        this.updateUI();
     }
 
     setupEventListeners() {
-        console.log('Configurando event listeners...');
-        document.querySelectorAll('.nav-button').forEach(button => {
-            button.addEventListener('click', () => {
-                this.navigateTo(button.dataset.page);
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks) navLinks.classList.remove('mobile-active');
-            });
-        });
-
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks) navLinks.classList.toggle('mobile-active');
-            });
-        }
-
+        console.log('Configurando listeners de eventos...');
         const connectWalletBtn = document.getElementById('connect-wallet-btn');
         if (connectWalletBtn) {
             connectWalletBtn.addEventListener('click', () => this.connectWallet());
@@ -1218,95 +1022,56 @@ class AnlogHabitsApp {
             disconnectBtn.addEventListener('click', () => this.disconnectWallet());
         }
 
-        const copyUrlBtn = document.getElementById('copy-url-btn');
-        if (copyUrlBtn) {
-            copyUrlBtn.addEventListener('click', () => {
-                const appUrl = document.getElementById('app-url');
-                if (appUrl) {
-                    navigator.clipboard.writeText(appUrl.textContent)
-                        .then(() => this.showToast('URL copiada com sucesso!', 'success'))
-                        .catch(() => this.showToast('Erro ao copiar URL.', 'error'));
-                }
+        const navButtons = document.querySelectorAll('.nav-button');
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const page = button.getAttribute('data-page');
+                this.navigateTo(page);
             });
-        }
-
-        const presaleBtn = document.getElementById('presale-btn');
-        if (presaleBtn) {
-            presaleBtn.addEventListener('click', () => this.navigateTo('presale'));
-        }
-
-        const copyPresaleWalletBtn = document.getElementById('copy-presale-wallet-btn');
-        if (copyPresaleWalletBtn) {
-            copyPresaleWalletBtn.addEventListener('click', () => {
-                const presaleWallet = document.getElementById('presale-wallet');
-                if (presaleWallet) {
-                    navigator.clipboard.writeText(presaleWallet.textContent)
-                        .then(() => this.showToast('Carteira de pré-venda copiada!', 'success'))
-                        .catch(() => this.showToast('Erro ao copiar carteira.', 'error'));
-                }
-            });
-        }
-
-        const solAmountInput = document.getElementById('sol-amount');
-        const detAmountInput = document.getElementById('det-amount');
-        if (solAmountInput && detAmountInput) {
-            solAmountInput.addEventListener('input', () => {
-                const sol = parseFloat(solAmountInput.value) || 0;
-                detAmountInput.value = (sol * 150 / 0.02).toFixed(5);
-            });
-        }
-
-        const buyPresaleBtn = document.getElementById('buy-presale-btn');
-        if (buyPresaleBtn) {
-            buyPresaleBtn.addEventListener('click', () => {
-                if (!detAmountInput) return;
-                const detAmount = parseFloat(detAmountInput.value);
-                if (detAmount < 500 || detAmount > 100000) {
-                    this.showToast('A quantidade deve estar entre 500 e 100.000 DET.', 'error');
-                    return;
-                }
-                this.userData.totalBalance += detAmount;
-                this.addTransaction('presale', `Compra na Pré-venda: +${detAmount.toFixed(5)} DET`, detAmount);
-                this.saveUserData();
-                this.updateUI();
-                this.showToast(`Compra de ${detAmount.toFixed(5)} DET realizada com sucesso!`, 'success');
-            });
-        }
+        });
 
         const missionsGrid = document.getElementById('missions-grid');
         if (missionsGrid) {
-            missionsGrid.addEventListener('click', e => {
-                if (e.target.classList.contains('mission-button') && !e.target.disabled) {
-                    this.openMissionModal(e.target.dataset.missionId);
+            missionsGrid.addEventListener('click', (e) => {
+                const missionButton = e.target.closest('.mission-button');
+                if (missionButton) {
+                    const missionId = missionButton.getAttribute('data-mission-id');
+                    this.openMissionModal(missionId);
                 }
             });
         }
 
         const fixedMissionsGrid = document.getElementById('fixed-missions-grid');
         if (fixedMissionsGrid) {
-            fixedMissionsGrid.addEventListener('click', e => {
-                if (e.target.classList.contains('mission-button') && !e.target.disabled) {
-                    this.openMissionModal(e.target.dataset.missionId);
+            fixedMissionsGrid.addEventListener('click', (e) => {
+                const missionButton = e.target.closest('.mission-button');
+                if (missionButton) {
+                    const missionId = missionButton.getAttribute('data-mission-id');
+                    this.openMissionModal(missionId);
                 }
             });
         }
 
         const photoInput = document.getElementById('photo-input');
-        const photoPreview = document.getElementById('photo-preview');
-        const submitMissionBtn = document.getElementById('submit-mission-btn');
-        if (photoInput && photoPreview && submitMissionBtn) {
-            photoInput.addEventListener('change', () => {
-                if (photoInput.files && photoInput.files[0]) {
+        if (photoInput) {
+            photoInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
                     const reader = new FileReader();
-                    reader.onload = e => {
-                        photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                        submitMissionBtn.disabled = false;
+                    reader.onload = (event) => {
+                        const preview = document.getElementById('photo-preview');
+                        if (preview) {
+                            preview.innerHTML = `<img src="${event.target.result}" alt="Preview" style="max-width: 100%; max-height: 200px;">`;
+                            const submitButton = document.getElementById('submit-mission-btn');
+                            if (submitButton) submitButton.disabled = false;
+                        }
                     };
-                    reader.readAsDataURL(photoInput.files[0]);
+                    reader.readAsDataURL(file);
                 }
             });
         }
 
+        const submitMissionBtn = document.getElementById('submit-mission-btn');
         if (submitMissionBtn) {
             submitMissionBtn.addEventListener('click', () => this.submitMission());
         }
@@ -1316,97 +1081,15 @@ class AnlogHabitsApp {
             closeModalBtn.addEventListener('click', () => this.closeModal());
         }
 
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                const category = button.dataset.category;
-                const shopItems = document.querySelectorAll('.shop-item');
-                shopItems.forEach(item => {
-                    if (category === 'all' || item.dataset.category === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        const shopGrid = document.querySelector('.shop-grid');
-        if (shopGrid) {
-            shopGrid.addEventListener('click', e => {
-                if (e.target.classList.contains('buy-btn')) {
-                    const item = e.target.closest('.shop-item');
-                    if (!item) return;
-                    const priceElement = item.querySelector('.item-price');
-                    if (!priceElement) return;
-                    const price = parseFloat(priceElement.textContent);
-                    if ((this.userData.spendingBalance || 0) < price) {
-                        this.showToast('Saldo insuficiente para comprar este item.', 'error');
-                        return;
-                    }
-                    const itemName = item.querySelector('h4')?.textContent || 'Item';
-                    this.userData.spendingBalance -= price;
-                    this.userData.lotteryWinnings = Math.max(0, (this.userData.lotteryWinnings || 0) - price);
-                    this.addTransaction('purchase', `Compra: ${itemName} (-${price.toFixed(5)} DET)`, -price);
-                    this.saveUserData();
-                    this.updateUI();
-                    this.showToast('Item comprado com sucesso!', 'success');
-                }
-            });
-        }
-
         const withdrawBtn = document.getElementById('withdraw-btn');
         if (withdrawBtn) {
-            withdrawBtn.addEventListener('click', async () => {
-                const minWithdraw = 800;
+            withdrawBtn.addEventListener('click', () => {
                 const amountInput = document.getElementById('withdraw-amount-input');
-                const amount = parseFloat(amountInput.value) || this.userData.totalBalance || 0;
-
-                if (amount < minWithdraw) {
-                    this.showToast(`Mínimo de ${minWithdraw} DET necessário para saque.`, 'error');
-                    return;
-                }
-
-                if (!this.wallet || !this.api) {
-                    this.showToast('Carteira não conectada. Conecte a Talisman primeiro.', 'error');
-                    return;
-                }
-
-                this.showLoading('Processando saque...');
-
+                const amount = parseFloat(amountInput.value);
                 try {
-                    // Enviar requisição para o backend
-                    const response = await fetch('http://localhost:3000/withdraw', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            destinationAddress: this.wallet,
-                            amount: amount.toFixed(5),
-                        }),
-                    });
-
-                    const data = await response.json();
-
-                    if (!response.ok) {
-                        throw new Error(data.error || 'Erro no saque.');
-                    }
-
-                    // Sucesso: Ajustar saldo local e atualizar
-                    this.userData.totalBalance -= amount;
-                    this.addTransaction('withdraw', `Saque: ${amount.toFixed(5)} DET (tx: ${data.signature})`, -amount);
-                    this.saveUserData();
-                    this.updateUI();
-                    this.showToast(`Saque de ${amount.toFixed(5)} DET concluído! Assinatura: ${data.signature}`, 'success');
-                    if (amountInput) amountInput.value = '';
+                    this.withdraw(amount);
                 } catch (error) {
-                    console.error('Erro no saque:', error);
-                    this.showToast(`Erro ao processar saque: ${error.message}`, 'error');
-                } finally {
-                    this.hideLoading();
+                    this.showToast(error.message, 'error');
                 }
             });
         }
@@ -1414,16 +1097,10 @@ class AnlogHabitsApp {
         const stakeVoluntaryBtn = document.getElementById('stake-voluntary-btn');
         if (stakeVoluntaryBtn) {
             stakeVoluntaryBtn.addEventListener('click', () => {
-                const stakeAmountInput = document.getElementById('stake-amount-input');
-                if (!stakeAmountInput) {
-                    console.error('Elemento stake-amount-input não encontrado');
-                    this.showToast('Erro: Campo de stake não encontrado.', 'error');
-                    return;
-                }
-                const amount = parseFloat(stakeAmountInput.value);
+                const amountInput = document.getElementById('stake-amount-input');
+                const amount = parseFloat(amountInput.value);
                 try {
                     this.stakeVoluntary(amount);
-                    stakeAmountInput.value = '';
                 } catch (error) {
                     this.showToast(error.message, 'error');
                 }
@@ -1433,27 +1110,10 @@ class AnlogHabitsApp {
         const unstakeVoluntaryBtn = document.getElementById('unstake-voluntary-btn');
         if (unstakeVoluntaryBtn) {
             unstakeVoluntaryBtn.addEventListener('click', () => {
-                const unstakeAmountInput = document.getElementById('unstake-amount-input');
-                if (!unstakeAmountInput) {
-                    console.error('Elemento unstake-amount-input não encontrado');
-                    this.showToast('Erro: Campo de retirada não encontrado.', 'error');
-                    return;
-                }
-                const amount = parseFloat(unstakeAmountInput.value);
+                const amountInput = document.getElementById('unstake-amount-input');
+                const amount = parseFloat(amountInput.value);
                 try {
                     this.unstakeVoluntaryPartial(amount);
-                    unstakeAmountInput.value = '';
-                } catch (error) {
-                    this.showToast(error.message, 'error');
-                }
-            });
-        }
-
-        const withdrawMaxVoluntaryBtn = document.getElementById('withdraw-max-voluntary-btn');
-        if (withdrawMaxVoluntaryBtn) {
-            withdrawMaxVoluntaryBtn.addEventListener('click', () => {
-                try {
-                    this.withdrawMaxVoluntary();
                 } catch (error) {
                     this.showToast(error.message, 'error');
                 }
@@ -1471,33 +1131,248 @@ class AnlogHabitsApp {
             });
         }
 
+        const withdrawMaxVoluntaryBtn = document.getElementById('withdraw-max-voluntary-btn');
+        if (withdrawMaxVoluntaryBtn) {
+            withdrawMaxVoluntaryBtn.addEventListener('click', () => {
+                try {
+                    this.withdrawMaxVoluntary();
+                } catch (error) {
+                    this.showToast(error.message, 'error');
+                }
+            });
+        }
+
         const transferLotteryBtn = document.getElementById('transfer-lottery-btn');
         if (transferLotteryBtn) {
-            // Remover qualquer listener existente para evitar duplicação
-            transferLotteryBtn.replaceWith(transferLotteryBtn.cloneNode(true));
-            const newTransferLotteryBtn = document.getElementById('transfer-lottery-btn');
-            const transferAmountInput = document.getElementById('transfer-amount-input');
-            if (transferAmountInput) {
-                newTransferLotteryBtn.addEventListener('click', () => {
-                    const amount = parseFloat(transferAmountInput.value);
-                    if (amount && amount > 0) {
-                        try {
-                            this.transferLotteryWinningsToTotal(amount);
-                            transferAmountInput.value = '';
-                        } catch (error) {
-                            this.showToast(error.message, 'error');
-                        }
-                    } else {
-                        this.showToast('Por favor, insira uma quantidade válida.', 'error');
-                    }
-                });
-            }
+            transferLotteryBtn.addEventListener('click', () => {
+                const amountInput = document.getElementById('transfer-amount-input');
+                const amount = parseFloat(amountInput.value);
+                try {
+                    this.transferLotteryWinningsToTotal(amount);
+                } catch (error) {
+                    this.showToast(error.message, 'error');
+                }
+            });
         }
+
+        const closeLotteryModalBtn = document.getElementById('close-lottery-modal');
+        if (closeLotteryModalBtn) {
+            closeLotteryModalBtn.addEventListener('click', () => {
+                const modal = document.getElementById('lottery-win-modal');
+                if (modal) modal.classList.remove('active');
+            });
+        }
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('open');
+            });
+        }
+    }
+
+    withdraw(amount) {
+        console.log('Tentando sacar:', amount);
+        try {
+            amount = parseFloat(amount.toFixed(5));
+            if (isNaN(amount) || amount < 800) {
+                throw new Error('O valor mínimo para saque é 800 DET.');
+            }
+            if ((this.userData.totalBalance || 0) < amount) {
+                throw new Error(`Saldo insuficiente. Você tem ${(this.userData.totalBalance || 0).toFixed(5)} DET.`);
+            }
+            this.userData.totalBalance -= amount;
+            this.addTransaction('withdraw', `Saque: ${amount.toFixed(5)} DET`, -amount);
+            this.saveUserData();
+            this.updateUI();
+            console.log('Saque realizado:', amount);
+            this.showToast(`Saque de ${amount.toFixed(5)} DET realizado com sucesso!`, 'success');
+            return amount;
+        } catch (error) {
+            console.error('Erro ao sacar:', error);
+            throw error;
+        }
+    }
+
+    closeModal() {
+        const modal = document.getElementById('photo-modal');
+        const photoInput = document.getElementById('photo-input');
+        const photoPreview = document.getElementById('photo-preview');
+        const submitButton = document.getElementById('submit-mission-btn');
+        if (modal) modal.classList.remove('active');
+        if (photoInput) photoInput.value = '';
+        if (photoPreview) photoPreview.innerHTML = '';
+        if (submitButton) submitButton.disabled = true;
+        this.currentMission = null;
+    }
+
+    addTransaction(type, description, amount) {
+        console.log('Adicionando transação:', { type, description, amount });
+        this.userData.transactions.unshift({
+            type,
+            description,
+            amount,
+            date: new Date().toISOString()
+        });
+        if (this.userData.transactions.length > 50) {
+            this.userData.transactions = this.userData.transactions.slice(0, 50);
+        }
+        this.saveUserData();
+    }
+
+    updateUI() {
+        console.log('Atualizando UI...');
+        try {
+            const totalBalanceElement = document.getElementById('total-balance');
+            if (totalBalanceElement) {
+                totalBalanceElement.textContent = (this.userData.totalBalance || 0).toFixed(5);
+            }
+
+            const stakeBalanceElement = document.getElementById('stake-balance');
+            if (stakeBalanceElement) {
+                stakeBalanceElement.textContent = (this.userData.stakeBalance || 0).toFixed(5);
+            }
+
+            const voluntaryStakeBalanceElement = document.getElementById('voluntary-stake-balance');
+            if (voluntaryStakeBalanceElement) {
+                voluntaryStakeBalanceElement.textContent = (this.userData.voluntaryStakeBalance || 0).toFixed(5);
+            }
+
+            const spendingBalanceElement = document.getElementById('spending-balance');
+            if (spendingBalanceElement) {
+                spendingBalanceElement.textContent = (this.userData.spendingBalance || 0).toFixed(5);
+            }
+
+            const shopBalanceElement = document.getElementById('shop-balance');
+            if (shopBalanceElement) {
+                shopBalanceElement.textContent = (this.userData.spendingBalance || 0).toFixed(5);
+            }
+
+            const lotteryWinningsElement = document.getElementById('lottery-winnings');
+            if (lotteryWinningsElement) {
+                lotteryWinningsElement.textContent = (this.userData.lotteryWinnings || 0).toFixed(5);
+            }
+
+            const withdrawBtn = document.getElementById('withdraw-btn');
+            const withdrawInput = document.getElementById('withdraw-amount-input');
+            if (withdrawBtn && withdrawInput) {
+                withdrawBtn.disabled = !this.wallet || (this.userData.totalBalance || 0) < 800;
+                withdrawInput.disabled = !this.wallet || (this.userData.totalBalance || 0) < 800;
+            }
+
+            const transferLotteryBtn = document.getElementById('transfer-lottery-btn');
+            const transferInput = document.getElementById('transfer-amount-input');
+            if (transferLotteryBtn && transferInput) {
+                transferLotteryBtn.disabled = !this.wallet || (this.userData.lotteryWinnings || 0) <= 0 || (this.userData.spendingBalance || 0) <= 0;
+                transferInput.disabled = !this.wallet || (this.userData.lotteryWinnings || 0) <= 0 || (this.userData.spendingBalance || 0) <= 0;
+            }
+
+            const stakeVoluntaryBtn = document.getElementById('stake-voluntary-btn');
+            const stakeInput = document.getElementById('stake-amount-input');
+            if (stakeVoluntaryBtn && stakeInput) {
+                stakeVoluntaryBtn.disabled = !this.wallet || (this.userData.totalBalance || 0) <= 0;
+                stakeInput.disabled = !this.wallet || (this.userData.totalBalance || 0) <= 0;
+            }
+
+            const unstakeVoluntaryBtn = document.getElementById('unstake-voluntary-btn');
+            const unstakeInput = document.getElementById('unstake-amount-input');
+            if (unstakeVoluntaryBtn && unstakeInput) {
+                unstakeVoluntaryBtn.disabled = !this.wallet || (this.userData.voluntaryStakeBalance || 0) <= 0;
+                unstakeInput.disabled = !this.wallet || (this.userData.voluntaryStakeBalance || 0) <= 0;
+            }
+
+            const withdrawMaxObligatoryBtn = document.getElementById('withdraw-max-obligatory-btn');
+            if (withdrawMaxObligatoryBtn) {
+                const now = new Date();
+                const isLocked = this.userData.stakeLockEnd && new Date(this.userData.stakeLockEnd) > now;
+                withdrawMaxObligatoryBtn.disabled = !this.wallet || (this.userData.stakeBalance || 0) <= 0 || isLocked;
+            }
+
+            const withdrawMaxVoluntaryBtn = document.getElementById('withdraw-max-voluntary-btn');
+            if (withdrawMaxVoluntaryBtn) {
+                withdrawMaxVoluntaryBtn.disabled = !this.wallet || (this.userData.voluntaryStakeBalance || 0) <= 0;
+            }
+
+            const transactionHistory = document.getElementById('transaction-history');
+            if (transactionHistory) {
+                transactionHistory.innerHTML = this.userData.transactions.map(t => `
+                    <div class="history-item">
+                        <span class="history-type">${t.type}</span>
+                        <span class="history-description">${t.description}</span>
+                        <span class="history-amount">${t.amount.toFixed(5)} DET</span>
+                        <span class="history-date">${new Date(t.date).toLocaleString('pt-BR')}</span>
+                    </div>
+                `).join('');
+            }
+
+            this.updateMissionProgress();
+            this.updateStakeLockTimer();
+            this.updateYieldsUI();
+        } catch (error) {
+            console.error('Erro ao atualizar UI:', error);
+            this.showToast('Erro ao atualizar a interface.', 'error');
+        }
+    }
+
+    showToast(message, type = 'info') {
+        const toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            console.warn('Elemento toast-container não encontrado');
+            return;
+        }
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            setTimeout(() => {
+                if (toast.parentNode) toast.parentNode.removeChild(toast);
+            }, 500);
+        }, 3000);
+    }
+
+    showLoading(message) {
+        const loadingOverlay = document.getElementById('loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.querySelector('p').textContent = message;
+            loadingOverlay.classList.add('active');
+        }
+    }
+
+    hideLoading() {
+        const loadingOverlay = document.getElementById('loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.classList.remove('active');
+        }
+    }
+
+    saveUserData() {
+        console.log('Salvando dados do usuário no localStorage...');
+        try {
+            localStorage.setItem(
+                `anloghabits_${this.wallet || 'default'}`,
+                JSON.stringify(this.userData)
+            );
+            console.log('Dados do usuário salvos com sucesso');
+        } catch (error) {
+            console.error('Erro ao salvar dados do usuário:', error);
+            this.showToast('Erro ao salvar dados do usuário.', 'error');
+        }
+    }
+
+    startBackupInterval() {
+        console.log('Iniciando intervalo de backup...');
+        setInterval(() => {
+            if (this.wallet) {
+                this.saveUserData();
+                console.log('Backup automático realizado');
+            }
+        }, 5 * 60 * 1000); // Backup a cada 5 minutos
     }
 }
 
 window.app = new AnlogHabitsApp();
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM carregado, inicializando aplicação...');
-    window.app.init();
-});
+window.app.init();
