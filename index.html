@@ -277,38 +277,45 @@
             <div class="page-header">
                 <h1>Pesquisas - AnlogHabits</h1>
                 <div class="missions-timer">
-                    Nível atual: <span id="research-timer">Nível 1</span>
+                    Saldo ANLOG: <span id="anlog-balance">0</span> | Nível atual: <span id="research-timer">Nível 1</span>
                 </div>
             </div>
             <div id="research-grid" class="missions-grid">
                 <div class="research-banner" data-banner="tenis">
                     <div class="banner-header">
                         <span class="banner-icon">👟</span>
-                        <span class="banner-reward">+0.5 DET (Nível 1)</span>
+                        <span class="banner-reward">+<span id="tenis-reward">0.5</span> DET (Nível <span id="tenis-level">1</span>)</span>
                     </div>
                     <h3 class="banner-title">Tênis (Caminhada/Corrida)</h3>
                     <p class="banner-description">Aumente recompensas para missões de movimento.</p>
-                    <p class="banner-level">Nível <span id="tenis-level">1</span>/100</p>
-                    <p class="banner-cost">Custo próximo: 300 ANLOG</p>
-                    <button class="btn-primary" id="upgrade-tenis">Subir Nível</button>
-                    <button class="btn-secondary" id="test-tenis">Testar Missão</button>
+                    <div class="progress-bar">
+                        <div id="tenis-progress" class="progress-fill" style="width: 1%"></div>
+                    </div>
+                    <p class="banner-level">Nível <span id="tenis-level-display">1</span>/100</p>
+                    <p class="banner-cost">Custo próximo nível: <span id="tenis-cost">300</span> ANLOG</p>
+                    <button class="btn-primary" id="upgrade-tenis" data-banner="tenis">Subir Nível</button>
+                    <button class="btn-secondary" id="test-tenis" data-banner="tenis">Testar Missão</button>
                 </div>
                 <div class="research-banner" data-banner="tapete">
                     <div class="banner-header">
                         <span class="banner-icon">🧘</span>
-                        <span class="banner-reward">+0.5 DET (Nível 1)</span>
+                        <span class="banner-reward">+<span id="tapete-reward">0.5</span> DET (Nível <span id="tapete-level">1</span>)</span>
                     </div>
                     <h3 class="banner-title">Tapete (Meditação/Relaxamento)</h3>
                     <p class="banner-description">Aumente recompensas para missões de relaxamento.</p>
-                    <p class="banner-level">Nível <span id="tapete-level">1</span>/100</p>
-                    <p class="banner-cost">Custo próximo: 300 ANLOG</p>
-                    <button class="btn-primary" id="upgrade-tapete">Subir Nível</button>
-                    <button class="btn-secondary" id="test-tapete">Testar Missão</button>
+                    <div class="progress-bar">
+                        <div id="tapete-progress" class="progress-fill" style="width: 1%"></div>
+                    </div>
+                    <p class="banner-level">Nível <span id="tapete-level-display">1</span>/100</p>
+                    <p class="banner-cost">Custo próximo nível: <span id="tapete-cost">300</span> ANLOG</p>
+                    <button class="btn-primary" id="upgrade-tapete" data-banner="tapete">Subir Nível</button>
+                    <button class="btn-secondary" id="test-tapete" data-banner="tapete">Testar Missão</button>
                 </div>
             </div>
             <div class="research-summary">
                 <h3 class="summary-title">Como Funciona</h3>
-                <p>Pague com ANLOG para subir níveis e ganhar mais DET em missões relacionadas (ex: caminhada usa Tênis). Curva de recompensas: baixa inicial, alta nos níveis 70-100.</p>
+                <p>Pague com ANLOG para subir níveis e ganhar mais DET em missões relacionadas (ex.: caminhada usa Tênis, meditação usa Tapete). A curva de recompensas aumenta significativamente nos níveis 70-100.</p>
+                <p>Recompensas por nível: <br>1-30: +0.5 a +1.5 DET | 31-60: +1.6 a +3 DET | 61-80: +3.1 a +5 DET | 81-100: +5.1 a +10 DET.</p>
             </div>
         </div>
 
