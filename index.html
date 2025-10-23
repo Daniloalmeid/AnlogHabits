@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnlogHabits - Analog</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Bibliotecas Polkadot.js -->
-<script defer src="https://unpkg.com/@polkadot/api@10.13.1/dist/index.umd.js"></script>
-<script defer src="https://unpkg.com/@polkadot/extension-dapp@0.47.3/dist/index.umd.js"></script>
-<!-- Biblioteca Talisman Connect (opcional, melhora UX) -->
-<script defer src="https://unpkg.com/@talismn/connect-wallets@1.2.1/dist/index.umd.js"></script>
-<!-- Seu script -->
-<script defer src="app.js"></script>
-    <script type="module" src="lottery.js" defer></script>
+    <!-- Mantendo apenas @polkadot/api, necessário para interação com a blockchain -->
+    <script defer src="https://unpkg.com/@polkadot/api@10.13.1/dist/index.umd.js"></script>
+    <script defer src="app.js"></script>
+    <script defer src="lottery.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Navbar -->
         <nav id="navbar" class="navbar" style="display: none;">
             <div class="nav-container">
-                <div class="nav-logo">AnlogHabits</div> <!-- MUDANÇA: Nome alterado -->
+                <div class="nav-logo">AnlogHabits</div>
                 <div class="nav-links">
                     <button class="nav-button active" data-page="missions">Missões</button>
                     <button class="nav-button" data-page="wallet">Carteira</button>
                     <button class="nav-button" data-page="shop">Loja</button>
-                    <button class="nav-button" data-page="research">Pesquisas</button> <!-- MUDANÇA: Novo botão Pesquisas -->
+                    <button class="nav-button" data-page="research">Pesquisas</button>
                     <button class="nav-button" data-page="whitepaper">Whitepaper</button>
                     <button class="nav-button" data-page="presale">Pré-venda</button>
                     <div class="wallet-info">
@@ -43,10 +39,10 @@
         <!-- Home Page -->
         <div id="home-page" class="page active">
             <div class="hero-card">
-                <img src="logo.png" alt="AnlogHabits Logo" class="hero-logo"> <!-- MUDANÇA: Alt alterado -->
-                <h1 class="hero-title">Bem-vindo ao AnlogHabits</h1> <!-- MUDANÇA: Nome alterado -->
+                <img src="logo.png" alt="AnlogHabits Logo" class="hero-logo">
+                <h1 class="hero-title">Bem-vindo ao AnlogHabits</h1>
                 <p class="hero-subtitle">Transforme seus hábitos, ganhe recompensas!</p>
-                <p class="hero-description">Complete missões diárias, ganhe DET e participe do nosso ecossistema na blockchain Analog.</p> <!-- MUDANÇA: Analog em vez de Solana -->
+                <p class="hero-description">Complete missões diárias, ganhe DET e participe do nosso ecossistema na blockchain Analog.</p>
                 <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-number">300%</div>
@@ -61,13 +57,8 @@
                         <div class="stat-label">Bloqueio de Stake</div>
                     </div>
                 </div>
-                <p class="mobile-instruction">
-                    No celular, abra esta URL no navegador interno do aplicativo Talisman:<br>
-                    <span id="app-url">https://seu-github.io/AnlogHabits/</span><br> <!-- MUDANÇA: URL e Talisman -->
-                    <button id="copy-url-btn" class="btn-secondary">Copiar URL</button>
-                </p>
                 <div class="hero-buttons">
-                    <button id="connect-wallet-btn" class="btn-primary">Conectar Carteira Talisman</button> <!-- MUDANÇA: Talisman -->
+                    <button id="connect-wallet-btn" class="btn-primary">Conectar Carteira Talisman</button>
                     <button id="presale-btn" class="btn-secondary">Pré-venda</button>
                 </div>
             </div>
@@ -281,16 +272,16 @@
             </div>
         </div>
 
-        <!-- Pesquisas Page (NOVA) -->
+        <!-- Pesquisas Page -->
         <div id="research-page" class="page">
             <div class="page-header">
-                <h1>Pesquisas - AnlogHabits</h1> <!-- MUDANÇA: Nova página -->
+                <h1>Pesquisas - AnlogHabits</h1>
                 <div class="missions-timer">
                     Nível atual: <span id="research-timer">Nível 1</span>
                 </div>
             </div>
-            <div id="research-grid" class="missions-grid"> <!-- MUDANÇA: Grid para banners -->
-                <div class="research-banner" data-banner="tenis"> <!-- Banner Tênis -->
+            <div id="research-grid" class="missions-grid">
+                <div class="research-banner" data-banner="tenis">
                     <div class="banner-header">
                         <span class="banner-icon">👟</span>
                         <span class="banner-reward">+0.5 DET (Nível 1)</span>
@@ -302,7 +293,7 @@
                     <button class="btn-primary" id="upgrade-tenis">Subir Nível</button>
                     <button class="btn-secondary" id="test-tenis">Testar Missão</button>
                 </div>
-                <div class="research-banner" data-banner="tapete"> <!-- Banner Tapete -->
+                <div class="research-banner" data-banner="tapete">
                     <div class="banner-header">
                         <span class="banner-icon">🧘</span>
                         <span class="banner-reward">+0.5 DET (Nível 1)</span>
@@ -321,7 +312,7 @@
             </div>
         </div>
 
-        <!-- Whitepaper Page (Atualizado para Analog) -->
+        <!-- Whitepaper Page -->
         <div id="whitepaper-page" class="page">
             <div class="container">
                 <div class="page-header">
@@ -332,15 +323,13 @@
                     <div class="wp-section">
                         <h2>1. Introdução</h2>
                         <p>Anlog Habits é um aplicativo inovador que recompensa os usuários por adotarem hábitos saudáveis e produtivos. Complete tarefas simples como caminhar, beber água ou meditar, envie uma foto como prova e ganhe tokens DET como recompensa.</p>
-                        <p>A ideia é transformar pequenas ações positivas em ganhos reais usando o poder da blockchain Analog, inteligência artificial e gamificação.</p> <!-- MUDANÇA: Analog em vez de Solana -->
+                        <p>A ideia é transformar pequenas ações positivas em ganhos reais usando o poder da blockchain Analog, inteligência artificial e gamificação.</p>
                     </div>
-                    <!-- ... (resto do whitepaper igual, mas substitua "Solana" por "Analog" em outros trechos se necessário) ... -->
-                    <!-- Nota: Copie o resto do whitepaper do seu original, ajustando para Analog -->
                 </div>
             </div>
         </div>
 
-        <!-- Presale Page (Atualizado) -->
+        <!-- Presale Page -->
         <div id="presale-page" class="page">
             <div class="container">
                 <div class="page-header">
@@ -351,9 +340,8 @@
                     <div class="presale-info">
                         <h2>Participe da Pré-venda do DET</h2>
                         <p>Adquira tokens DET por $0.02 cada. Supply da pré-venda: 10.000.000 DET (10% do total). Mínimo: 500 DET ($10). Máximo: 100.000 DET ($2.000).</p>
-                        <p>Objetivo: Financiar o desenvolvimento e expansão do Anlog Habits na Analog.</p> <!-- MUDANÇA: Nome e Analog -->
+                        <p>Objetivo: Financiar o desenvolvimento e expansão do Anlog Habits na Analog.</p>
                     </div>
-                    <!-- ... (resto igual) ... -->
                 </div>
             </div>
         </div>

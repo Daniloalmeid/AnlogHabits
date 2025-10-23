@@ -37,8 +37,8 @@ class AnlogHabitsApp {
         this.secondYieldRate = this.minuteYieldRate / 60;
         this.yieldInterval = null;
         this.uiYieldInterval = null;
-        // RPC da testnet Analog (mude para 'wss://timechain-rpc.analog.one' para mainnet)
-        this.rpcEndpoint = 'wss://rpc.testnet.analog.one';
+        // RPC da mainnet Analog
+        this.rpcEndpoint = 'wss://timechain-rpc.analog.one';
     }
 
     async init() {
@@ -54,11 +54,15 @@ class AnlogHabitsApp {
             this.startBackupInterval();
             // Tentar reconexão automática com Talisman
             try {
+                if (typeof web3Enable === 'undefined') {
+                    throw new Error('Biblioteca @polkadot/extension-dapp não carregada. Verifique o index.html.');
+                }
                 await web3Enable('AnlogHabits');
                 console.log('Tentando reconexão automática com Talisman...');
                 await this.connectWallet(true);
             } catch (error) {
-                console.log('Talisman não disponível para reconexão automática.');
+                console.log('Talisman não disponível para reconexão automática:', error.message);
+                this.showToast('Aguardando conexão manual com a carteira Talisman.', 'info');
             }
         } catch (error) {
             console.error('Erro durante inicialização:', error);
@@ -426,60 +430,41 @@ class AnlogHabitsApp {
         console.log(`Tentando conectar carteira Talisman (onlyIfTrusted: ${onlyIfTrusted})...`);
         this.showLoading('Conectando à carteira Talisman...');
         try {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            console.log('Ambiente detectado:', isMobile ? 'Mobile' : 'Desktop');
+            // Verificar se a biblioteca @polkadot/extension-dapp está carregada
+            if (typeof web3Enable === 'undefined') {
+                throw new Error('Biblioteca @polkadot/extension-dapp não carregada. Verifique se está incluída no index.html e se a extensão Talisman está instalada.');
+            }
 
             // Habilitar a extensão Talisman
             const extensions = await web3Enable('AnlogHabits');
             if (extensions.length === 0) {
-                console.warn('Carteira Talisman não detectada.');
-                this.hideLoading();
-                if (isMobile) {
-                    this.showToast(
-                        'Por favor, abra esta URL no navegador interno do aplicativo Talisman: https://daniloalmeid.github.io/AnlogHabits-Analog/',
-                        'info'
-                    );
-                    const redirectUrl = encodeURIComponent('https://daniloalmeid.github.io/AnlogHabits-Analog/');
-                    const deepLink = `talisman://connect?app_url=${redirectUrl}&dapp_name=AnlogHabits`;
-                    console.log('Redirecionando para deep link:', deepLink);
-                    window.location.href = deepLink;
-                    await new Promise(resolve => setTimeout(resolve, 3000));
-                    const newExtensions = await web3Enable('AnlogHabits');
-                    if (newExtensions.length === 0) {
-                        this.showToast(
-                            'Não foi possível detectar a carteira Talisman. Certifique-se de estar usando o navegador interno do Talisman.',
-                            'error'
-                        );
-                        return;
-                    }
-                } else {
-                    this.showToast(
-                        'A extensão Talisman não foi encontrada. Por favor, instale a extensão no seu navegador.',
-                        'error'
-                    );
-                    return;
-                }
+                throw new Error('Nenhuma extensão de carteira detectada. Por favor, instale a extensão Talisman em talisman.xyz e recarregue a página.');
             }
 
-            // Conectar à carteira Talisman
-            console.log('Conectando com a carteira Talisman...');
+            // Encontrar a extensão Talisman
+            const talismanExtension = extensions.find(ext => ext.name === 'talisman');
+            if (!talismanExtension) {
+                throw new Error('Extensão Talisman não detectada. Verifique se está instalada e ativada em talisman.xyz.');
+            }
+
+            // Obter injector do Talisman
             const injector = await web3FromSource('talisman');
             if (!injector) {
-                throw new Error('Talisman injector não encontrado.');
+                throw new Error('Talisman injector não encontrado. Verifique se a extensão está ativa e configurada corretamente.');
             }
 
-            // Conectar ao nó da Analog
+            // Conectar ao nó da Analog Mainnet
             const provider = new WsProvider(this.rpcEndpoint);
             this.api = await ApiPromise.create({ provider });
-            console.log('Conexão com o nó da Analog estabelecida.');
+            console.log('Conexão com o nó da Analog Mainnet estabelecida.');
 
             // Obter contas disponíveis
             const accounts = await injector.accounts.get();
             if (accounts.length === 0) {
-                throw new Error('Nenhuma conta encontrada na carteira Talisman.');
+                throw new Error('Nenhuma conta encontrada na carteira Talisman. Configure uma conta na extensão.');
             }
 
-            // Selecionar a primeira conta (pode ser ajustado para permitir escolha do usuário)
+            // Selecionar a primeira conta
             this.wallet = accounts[0].address;
             console.log('Carteira conectada com sucesso:', this.wallet);
             this.userData.walletAddress = this.wallet;
@@ -507,11 +492,11 @@ class AnlogHabitsApp {
             this.initStaking();
         } catch (error) {
             console.error('Erro ao conectar carteira:', error);
-            if (error.message.includes('rejected')) {
-                this.showToast('Você rejeitou a conexão com a carteira.', 'error');
+            if (error.message.includes('rejected') || error.message.includes('User rejected')) {
+                this.showToast('Você rejeitou a conexão com a carteira Talisman.', 'error');
             } else {
                 this.showToast(
-                    'Erro ao conectar a carteira. No celular, abra esta URL no navegador interno do Talisman: https://daniloalmeid.github.io/AnlogHabits-Analog/',
+                    `Erro ao conectar a carteira: ${error.message}. Certifique-se de que a extensão Talisman está instalada e ativada.`,
                     'error'
                 );
             }
@@ -869,7 +854,7 @@ class AnlogHabitsApp {
     updateStakeLockTimer() {
         const stakeTimeLeftElement = document.getElementById('stake-time-left');
         if (!stakeTimeLeftElement) {
-            stakeTimeLeftElement.textContent = 'Nenhum stake bloqueado';
+            console.warn('Elemento stake-time-left não encontrado');
             return;
         }
         if (!this.userData.stakeLockEnd) {
@@ -1024,8 +1009,9 @@ class AnlogHabitsApp {
         const totalStaked = (this.userData.stakeBalance || 0) + (this.userData.voluntaryStakeBalance || 0);
         let bonus = 1;
         if (totalStaked >= 500 && totalStaked <= 4999) bonus = 1.05;
-        else if (totalStaked >= 5000 && totalStaked <= 49999) bonus = 1.15;
-        else if (totalStaked >= 50000 && totalStaked <= 100000) bonus = 1.25;
+        else if (totalStaked >= 5000 && totalStaked <= 49999) bonus = 1.25;
+        else if (totalStaked >= 50000 && totalStaked <= 100000) bonus = 1.5;
+        else if (totalStaked >= 100000) bonus = 2;
         return Math.ceil(reward * bonus);
     }
 
@@ -1092,7 +1078,7 @@ class AnlogHabitsApp {
         if (voluntaryStakeBalanceElement) voluntaryStakeBalanceElement.textContent = (this.userData.voluntaryStakeBalance || 0).toFixed(5);
         if (spendingBalanceElement) spendingBalanceElement.textContent = (this.userData.spendingBalance || 0).toFixed(5);
         if (lotteryWinningsElement) lotteryWinningsElement.textContent = (this.userData.lotteryWinnings || 0).toFixed(5);
-        if (withdrawBtn) withdrawBtn.disabled = (this.userData.totalBalance || 0) < 100;
+        if (withdrawBtn) withdrawBtn.disabled = (this.userData.totalBalance || 0) < 800;
         if (withdrawMaxObligatoryBtn) {
             const now = new Date();
             withdrawMaxObligatoryBtn.disabled = !this.userData.stakeBalance || (this.userData.stakeLockEnd && new Date(this.userData.stakeLockEnd) > now);
@@ -1374,8 +1360,9 @@ class AnlogHabitsApp {
         const withdrawBtn = document.getElementById('withdraw-btn');
         if (withdrawBtn) {
             withdrawBtn.addEventListener('click', async () => {
-                const minWithdraw = 100; // Mínimo para testes
-                const amount = this.userData.totalBalance || 0;
+                const minWithdraw = 800;
+                const amountInput = document.getElementById('withdraw-amount-input');
+                const amount = parseFloat(amountInput.value) || this.userData.totalBalance || 0;
 
                 if (amount < minWithdraw) {
                     this.showToast(`Mínimo de ${minWithdraw} DET necessário para saque.`, 'error');
@@ -1408,12 +1395,13 @@ class AnlogHabitsApp {
                         throw new Error(data.error || 'Erro no saque.');
                     }
 
-                    // Sucesso: Zerando saldo local e atualizando
-                    this.userData.totalBalance = 0;
+                    // Sucesso: Ajustar saldo local e atualizar
+                    this.userData.totalBalance -= amount;
                     this.addTransaction('withdraw', `Saque: ${amount.toFixed(5)} DET (tx: ${data.signature})`, -amount);
                     this.saveUserData();
                     this.updateUI();
                     this.showToast(`Saque de ${amount.toFixed(5)} DET concluído! Assinatura: ${data.signature}`, 'success');
+                    if (amountInput) amountInput.value = '';
                 } catch (error) {
                     console.error('Erro no saque:', error);
                     this.showToast(`Erro ao processar saque: ${error.message}`, 'error');
